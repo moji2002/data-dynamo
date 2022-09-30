@@ -4,7 +4,7 @@ import schema from "./schema";
 
 const chance = new Chance();
 
-const generateSeeds = () => {
+const seed = () => {
   const db: any = {};
 
   for (const table of schema.tables) {
@@ -32,6 +32,6 @@ const generateSeeds = () => {
   });
 };
 
-generateSeeds();
+seed();
 
-export default generateSeeds;
+export default seed;

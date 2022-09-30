@@ -2,10 +2,10 @@
   "name": "fake-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app/server",
   "scripts": {
-    "dev": "ts-node  server",
-    "seed": "ts-node generateSeeds"
+    "dev": "ts-node  app/server",
+    "seed": "ts-node app/seed"
   },
   "keywords": [],
   "author": "",
