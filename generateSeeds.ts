@@ -21,7 +21,7 @@ const generateSeeds = () => {
     db[table.name] = data;
   }
 
-  const json = JSON.stringify(db, null, 2);
+  const json = JSON.stringify(db);
 
   fs.writeFile("data/db.json", json, (err) => {
     if (err) {

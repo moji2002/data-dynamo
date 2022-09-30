@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node  server -T",
+    "dev": "ts-node  server",
     "seed": "ts-node generateSeeds"
   },
   "keywords": [],
