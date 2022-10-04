@@ -269,7 +269,7 @@ const methods: Method[] = [
     arguments: [
       {
         name: "weekday_only",
-        displayName: "workdays",
+        displayName: "Only workdays",
         desc: "It will never return Saturday or Sunday.",
         type: "boolean",
         default: false,
