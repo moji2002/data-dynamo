@@ -3,9 +3,9 @@ import Document, { Head, Html, Main, NextScript } from 'next/document'
 class MyDocument extends Document {
   render() {
     return (
-      <Html data-theme="stimma">
+      <Html>
         <Head />
-        <body className="loading font-serif capitalize tracking-wider text-base-content">
+        <body className="loading  bg-base-200 ">
           <Main />
           <NextScript />
         </body>

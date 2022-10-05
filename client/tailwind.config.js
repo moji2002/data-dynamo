@@ -36,23 +36,6 @@ module.exports = {
       'night',
       'coffee',
       'winter',
-      {
-        stimma: {
-          primary: '#ffe595',
-          secondary: '#ffefc0',
-          accent: '#ff4a55',
-          neutral: '#18182F',
-          'base-100': '#fff',
-          info: '#289AE6',
-          success: '#3CD3C1',
-          warning: '#B89214',
-          error: '#E22248',
-
-          '--rounded-box': 0, // border radius rounded-box utility class, used in card and other large boxes
-          '--rounded-btn': 0, // border radius rounded-btn utility class, used in buttons and similar element
-          '--rounded-badge': 0, // border radius rounded-badge utility class, used in badges and similar
-        },
-      },
     ],
   },
   theme: {
