@@ -36,7 +36,7 @@ const Navbar = () => {
       </div>
       <div className="pr-4">
         <ListBox
-          className="w-60"
+          className=""
           options={themes}
           selected={theme}
           onChange={onThemeChange}

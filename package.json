@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client": "cd client && npm run dev",
+    "server": "cd server && npm run dev",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
   },
   "repository": {
     "type": "git",
@@ -16,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/moji2002/fake-api-generatror/issues"
   },
-  "homepage": "https://github.com/moji2002/fake-api-generatror#readme"
+  "homepage": "https://github.com/moji2002/fake-api-generatror#readme",
+  "devDependencies": {
+    "concurrently": "^7.4.0"
+  }
 }

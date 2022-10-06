@@ -4,7 +4,7 @@
   "description": "",
   "main": "app/server",
   "scripts": {
-    "dev": "ts-node  app/server",
+    "dev": "ts-node app/server",
     "seed": "ts-node app/seed"
   },
   "keywords": [],

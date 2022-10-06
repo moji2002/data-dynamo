@@ -1,4 +1,4 @@
-type Arguments = {
+type Option = {
   name: string;
   displayName?: string;
   desc: string;
@@ -10,23 +10,24 @@ interface Method {
   name: string;
   displayName?: string;
   desc: string;
-  arguments: Arguments[];
+  options: Option[];
 }
 
 const methods: Method[] = [
   {
     name: "natural",
-    desc: "",
-    arguments: [
+    displayName: "number",
+    desc: "Generate a natural number.",
+    options: [
       {
         name: "min",
         type: "number",
-        desc: "",
+        desc: "Can optionally provide min",
       },
       {
         name: "max",
         type: "number",
-        desc: "",
+        desc: "Can optionally provide max",
       },
       {
         name: "excludes",
@@ -37,9 +38,10 @@ const methods: Method[] = [
   },
   {
     name: "first",
+    displayName: "first name",
     desc: "Generate a random first name",
 
-    arguments: [
+    options: [
       {
         name: "nationality",
         desc: "Optionally specify a nationality to limit first names to those most common of that nationality",
@@ -56,9 +58,10 @@ const methods: Method[] = [
   },
   {
     name: "last",
+    displayName: "last name",
     desc: "Generate a random last name",
 
-    arguments: [
+    options: [
       {
         name: "nationality",
         desc: "Optionally specify a nationality to limit first names to those most common of that nationality",
@@ -71,7 +74,7 @@ const methods: Method[] = [
     name: "email",
     desc: "Generate a random email with a random domain.",
 
-    arguments: [
+    options: [
       {
         name: "domain",
         desc: "Optionally specify a domain and the email will be random but the domain will not.",
@@ -83,7 +86,7 @@ const methods: Method[] = [
     name: "age",
     desc: "Generate a random age, default range is between 1 and 120",
 
-    arguments: [
+    options: [
       {
         name: "type",
         desc: "Optionally specify one of a handful of enumerated age types.",
@@ -96,7 +99,7 @@ const methods: Method[] = [
     name: "paragraph",
     desc: "Return a random paragraph generated from sentences populated by semi-pronounceable random (nonsense) words.",
 
-    arguments: [
+    options: [
       {
         name: "sentences",
         desc: "Optionally specify the number of sentences in the paragraph.",
@@ -108,7 +111,7 @@ const methods: Method[] = [
     name: "gender",
     desc: "Generate a random gender",
 
-    arguments: [
+    options: [
       {
         name: "extraGenders",
         desc: "Optionally specify the number of sentences in the paragraph.",
@@ -119,7 +122,7 @@ const methods: Method[] = [
   {
     name: "animal",
     desc: "Generate a random animal",
-    arguments: [
+    options: [
       {
         name: "type",
         desc: "Optionally specify a specific type of animal",
@@ -139,7 +142,7 @@ const methods: Method[] = [
   {
     name: "color",
     desc: "Return a random color.",
-    arguments: [
+    options: [
       {
         name: "type",
         desc: "These are the kinds usable in HTML or CSS. The type can optionally be specified",
@@ -156,13 +159,13 @@ const methods: Method[] = [
   {
     name: "company",
     desc: "Return a random company name.",
-    arguments: [],
+    options: [],
   },
 
   {
     name: "domain",
     desc: "Return a random domain with a random tld.",
-    arguments: [
+    options: [
       {
         name: "tld",
         desc: "Optionally specify a tld and the domain will be random but the tld will not.",
@@ -173,7 +176,7 @@ const methods: Method[] = [
   {
     name: "url",
     desc: "Return a random domain with a random tld.",
-    arguments: [
+    options: [
       {
         name: "protocol",
         desc: "Optionally specify a protocol and the url will be random but the protocol will not.",
@@ -206,7 +209,7 @@ const methods: Method[] = [
   {
     name: "country",
     desc: "Generate a random country",
-    arguments: [
+    options: [
       {
         name: "full",
         desc: "Optionally specify that it ought to return a full country name.",
@@ -218,22 +221,22 @@ const methods: Method[] = [
   {
     name: "city",
     desc: "generate a random city name.",
-    arguments: [],
+    options: [],
   },
   {
     name: "timestamp",
     desc: "Generate a random timestamp. This is a standard Unix time, so a random number of seconds since January 1, 1970.",
-    arguments: [],
+    options: [],
   },
   {
     name: "month",
     desc: "GGenerate a random month.",
-    arguments: [],
+    options: [],
   },
   {
     name: "date",
     desc: "Generate a random date",
-    arguments: [
+    options: [
       {
         name: "string",
         desc: "Can optionally specify that a date be returned as a string",
@@ -265,14 +268,35 @@ const methods: Method[] = [
   },
   {
     name: "weekday",
-    desc: "Return a weekday",
-    arguments: [
+    desc: "Generate a random image uri",
+    options: [
       {
         name: "weekday_only",
         displayName: "Only workdays",
         desc: "It will never return Saturday or Sunday.",
         type: "boolean",
         default: false,
+      },
+    ],
+  },
+  {
+    name: "image",
+    desc: "Return a weekday",
+    options: [
+      {
+        name: "width",
+        desc: "set image width",
+        type: "number",
+      },
+      {
+        name: "height",
+        desc: "set image height",
+        type: "number",
+      },
+      {
+        name: "search",
+        desc: "Generate images from search terms.",
+        type: "string",
       },
     ],
   },

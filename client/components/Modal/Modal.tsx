@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 const Modal = ({ isOpen, setIsOpen, title, children }) => {
   const closeModal = () => setIsOpen(false)
@@ -30,7 +30,7 @@ const Modal = ({ isOpen, setIsOpen, title, children }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="card w-full max-w-md transform overflow-hidden border bg-base-100 p-6  text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className=" card w-full max-w-md transform overflow-hidden border bg-base-100 p-6  text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium leading-6 "
