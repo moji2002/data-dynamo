@@ -4,6 +4,10 @@ import '../styles/chrome-bug.css'
 import type { AppProps } from 'next/app'
 import { useEffect, FC, PropsWithChildren } from 'react'
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
 const Noop: FC<PropsWithChildren> = ({ children }) => <>{children}</>
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -17,9 +21,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       {/* <Head /> */}
-      <Layout pageProps={pageProps}>
-        <Component {...pageProps} />
-      </Layout>
+      <QueryClientProvider client={queryClient}>
+        <Layout pageProps={pageProps}>
+          <Component {...pageProps} />
+        </Layout>
+      </QueryClientProvider>
     </>
   )
 }

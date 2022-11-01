@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment } from 'react'
 
 const Modal = ({ isOpen, setIsOpen, title, children }) => {
   const closeModal = () => setIsOpen(false)
@@ -33,7 +33,7 @@ const Modal = ({ isOpen, setIsOpen, title, children }) => {
               <Dialog.Panel className=" card w-full max-w-md transform overflow-hidden border bg-base-100 p-6  text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 "
+                  className="mb-2 text-lg font-medium leading-6"
                 >
                   {title}
                 </Dialog.Title>

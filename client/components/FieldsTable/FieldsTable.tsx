@@ -1,4 +1,13 @@
-const FieldsTable = ({
+import { FC, MouseEventHandler } from 'react'
+
+type FieldsTableProps = {
+  headers: string[]
+  rows: {}[]
+  onDeleteClick: (e: MouseEventHandler<HTMLButtonElement>) => void
+  onDetailsClick: (e: MouseEventHandler<HTMLButtonElement>) => void
+}
+
+const FieldsTable: FC<FieldsTableProps> = ({
   headers,
   rows,
   onDeleteClick,
