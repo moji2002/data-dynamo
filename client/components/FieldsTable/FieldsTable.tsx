@@ -43,8 +43,8 @@ const FieldsTable: FC<FieldsTableProps> = ({
                   </label>
                 </th>
 
-                {cells.map((cell) => (
-                  <td key={cell} className="">
+                {cells.map((cell,index) => (
+                  <td key={index} className="">
                     {cell}
                   </td>
                 ))}

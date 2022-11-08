@@ -1,10 +1,11 @@
-import '../styles/globals.css'
-import '../styles/chrome-bug.css'
 
 import type { AppProps } from 'next/app'
 import { useEffect, FC, PropsWithChildren } from 'react'
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+import '../styles/globals.css'
+import '../styles/chrome-bug.css'
 
 const queryClient = new QueryClient()
 
@@ -25,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Layout pageProps={pageProps}>
           <Component {...pageProps} />
         </Layout>
+        <ReactQueryDevtools/>
       </QueryClientProvider>
     </>
   )
