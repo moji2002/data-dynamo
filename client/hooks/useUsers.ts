@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import api from 'libs/api'
 import { FormEvent } from 'react'
 
-export type User = {
+type User = {
   id: number
   firstName: string
   lastName: string
@@ -17,8 +17,6 @@ const useUsers = () => {
     queryKey: ['users'],
     queryFn: () => api<User[]>('users'),
   })
-
-  
 
   const invalidateUserQuery = () => {
     queryClient.invalidateQueries(['users'])
@@ -53,7 +51,14 @@ const useUsers = () => {
   const deleteUser = (userId: number) => {
     deleteMutation.mutate(userId)
   }
-  return { data: query.data?.data, submitNewUser, deleteUser,query }
+  return {
+    data: query.data?.data,
+    submitNewUser,
+    deleteUser,
+    query,
+    postMutation,
+    deleteMutation,
+  }
 }
 
 export default useUsers

@@ -1,21 +1,4 @@
-export type Option = {
-  name: string
-  label?: string
-  desc: string
-  type: 'enum' | 'range' | 'number' | 'string' | 'stringArray' | 'boolean'
-  enumValues?: string[]
-  default?: string | number | boolean
-  placeholder?: string
-  min?: number
-  max?: number
-  step?: number
-}
-export interface Method {
-  name: string
-  label?: string
-  desc: string
-  options: Option[]
-}
+import type { Method, MethodType } from '../types/method'
 
 const methods: Method[] = [
   {
@@ -25,17 +8,17 @@ const methods: Method[] = [
     options: [
       {
         name: 'min',
-        type: 'number',
+        type: 'number' as MethodType,
         desc: 'Can optionally provide min',
       },
       {
         name: 'max',
-        type: 'number',
+        type: 'number' as MethodType,
         desc: 'Can optionally provide max',
       },
       {
         name: 'excludes',
-        type: 'number',
+        type: 'number' as MethodType,
         desc: 'numbers you wish to exclude',
       },
     ],
@@ -49,14 +32,20 @@ const methods: Method[] = [
       {
         name: 'nationality',
         desc: 'Optionally specify a nationality to limit first names to those most common of that nationality',
-        type: 'enum',
-        enumValues: ['us', 'it'],
+        type: 'enum' as MethodType,
+        items: [
+          { label: 'us', value: 'us' },
+          { label: 'it', value: 'it' },
+        ],
       },
       {
         name: 'gender',
         desc: 'Optionally specify a gender to limit first names to that gender',
-        type: 'enum',
-        enumValues: ['female', 'male'],
+        type: 'enum' as MethodType,
+        items: [
+          { label: 'female', value: 'female' },
+          { label: 'male', value: 'male' },
+        ],
       },
     ],
   },
@@ -69,8 +58,17 @@ const methods: Method[] = [
       {
         name: 'nationality',
         desc: 'Optionally specify a nationality to limit first names to those most common of that nationality',
-        type: 'enum',
-        enumValues: ['en', 'it', 'nl', 'uk', 'de', 'jp', 'es', 'fr'],
+        type: 'enum' as MethodType,
+        items: [
+          { label: 'en', value: 'en' },
+          { label: 'it', value: 'it' },
+          { label: 'nl', value: 'nl' },
+          { label: 'uk', value: 'uk' },
+          { label: 'de', value: 'de' },
+          { label: 'jp', value: 'jp' },
+          { label: 'es', value: 'es' },
+          { label: 'fr', value: 'fr' },
+        ],
       },
     ],
   },
@@ -82,7 +80,7 @@ const methods: Method[] = [
       {
         name: 'domain',
         desc: 'Optionally specify a domain and the email will be random but the domain will not.',
-        type: 'string',
+        type: 'string' as MethodType,
         placeholder: 'gmail.com',
       },
     ],
@@ -95,8 +93,13 @@ const methods: Method[] = [
       {
         name: 'type',
         desc: 'Optionally specify one of a handful of enumerated age types.',
-        type: 'enum',
-        enumValues: ['child', 'teen', 'adult', 'senior'],
+        type: 'enum' as MethodType,
+        items: [
+          { label: 'child', value: 'child' },
+          { label: 'teen', value: 'teen' },
+          { label: 'adult', value: 'adult' },
+          { label: 'senior', value: 'senior' },
+        ],
       },
     ],
   },
@@ -108,7 +111,7 @@ const methods: Method[] = [
       {
         name: 'sentences',
         desc: 'Optionally specify the number of sentences in the paragraph.',
-        type: 'number',
+        type: 'number' as MethodType,
       },
     ],
   },
@@ -120,7 +123,7 @@ const methods: Method[] = [
         name: 'extraGenders',
         label: 'extra genders',
         desc: 'Optionally specify the number of sentences in the paragraph.',
-        type: 'stringArray',
+        type: 'stringArray' as MethodType,
         placeholder: 'Agender Genderqueer Trans Pangender',
       },
     ],
@@ -132,15 +135,15 @@ const methods: Method[] = [
       {
         name: 'type',
         desc: 'Optionally specify a specific type of animal',
-        type: 'enum',
-        enumValues: [
-          'ocean',
-          'desert',
-          'grassland',
-          'forest',
-          'farm',
-          'pet',
-          'zoo',
+        type: 'enum' as MethodType,
+        items: [
+          { label: 'ocean', value: 'ocean' },
+          { label: 'desert', value: 'desert' },
+          { label: 'grassland', value: 'grassland' },
+          { label: 'forest', value: 'forest' },
+          { label: 'farm', value: 'farm' },
+          { label: 'pet', value: 'pet' },
+          { label: 'zoo', value: 'zoo' },
         ],
       },
     ],
@@ -152,13 +155,18 @@ const methods: Method[] = [
       {
         name: 'type',
         desc: 'These are the kinds usable in HTML or CSS. The type can optionally be specified',
-        type: 'enum',
-        enumValues: ['hex', 'shorthex', 'rgb', '0x'],
+        type: 'enum' as MethodType,
+        items: [
+          { label: 'hex', value: 'hex' },
+          { label: 'shorthex', value: 'shorthex' },
+          { label: 'rgb', value: 'rgb' },
+          { label: '0x', value: '0x' },
+        ],
       },
       {
         name: 'grayscale',
         desc: 'Can optionally specify that only grayscale colors be generated',
-        type: 'boolean',
+        type: 'boolean' as MethodType,
       },
     ],
   },
@@ -175,7 +183,7 @@ const methods: Method[] = [
       {
         name: 'tld',
         desc: 'Optionally specify a tld and the domain will be random but the tld will not.',
-        type: 'string',
+        type: 'string' as MethodType,
       },
     ],
   },
@@ -186,32 +194,32 @@ const methods: Method[] = [
       {
         name: 'protocol',
         desc: 'Optionally specify a protocol and the url will be random but the protocol will not.',
-        type: 'string',
+        type: 'string' as MethodType,
         placeholder: 'ftp',
       },
       {
         name: 'domain',
         desc: 'Optionally specify a domain and the url will be random but the domain will not.',
-        type: 'string',
+        type: 'string' as MethodType,
         placeholder: 'www.socialradar.com',
       },
       {
         name: 'domain_prefix',
         label: 'domain prefix',
         desc: 'Optionally specify a domain prefix and domain will be random, and domain prefix will not.',
-        type: 'string',
+        type: 'string' as MethodType,
         placeholder: 'docs',
       },
       {
         name: 'path',
         desc: 'Optionally specify a path and it will be obeyed.',
-        type: 'string',
+        type: 'string' as MethodType,
         placeholder: 'images',
       },
       {
         name: 'extensions',
         desc: 'Optionally specify an array of extensions and one will be picked at random.',
-        type: 'stringArray',
+        type: 'stringArray' as MethodType,
         placeholder: 'gif jpg png',
       },
     ],
@@ -225,7 +233,7 @@ const methods: Method[] = [
         name: 'full',
         label: 'Full country name',
         desc: 'Optionally specify that it ought to return a full country name.',
-        type: 'boolean',
+        type: 'boolean' as MethodType,
         default: true,
       },
     ],
@@ -253,25 +261,25 @@ const methods: Method[] = [
         name: 'string',
         label: 'String',
         desc: 'Can optionally specify that a date be returned as a string',
-        type: 'boolean',
+        type: 'boolean' as MethodType,
         default: false,
       },
       {
         name: 'american',
         label: 'American',
         desc: 'Dates in DD/MM/YYYY format',
-        type: 'boolean',
+        type: 'boolean' as MethodType,
         default: false,
       },
       {
         name: 'year',
         desc: 'Optionally specify defaults for year.',
-        type: 'number',
+        type: 'number' as MethodType,
       },
       {
         name: 'month',
         desc: 'Optionally specify defaults for of month',
-        type: 'range',
+        type: 'range' as MethodType,
         min: 1,
         max: 12,
         step: 1,
@@ -279,7 +287,7 @@ const methods: Method[] = [
       {
         name: 'day',
         desc: 'Optionally specify defaults for of day',
-        type: 'range',
+        type: 'range' as MethodType,
         min: 1,
         max: 31,
         step: 1,
@@ -294,7 +302,7 @@ const methods: Method[] = [
         name: 'weekday_only',
         label: 'Only workdays',
         desc: 'It will never return Saturday or Sunday.',
-        type: 'boolean',
+        type: 'boolean' as MethodType,
         default: false,
       },
     ],
@@ -306,17 +314,17 @@ const methods: Method[] = [
       {
         name: 'width',
         desc: 'set image width',
-        type: 'number',
+        type: 'number' as MethodType,
       },
       {
         name: 'height',
         desc: 'set image height',
-        type: 'number',
+        type: 'number' as MethodType,
       },
       {
         name: 'search',
         desc: 'Generate images from search terms.',
-        type: 'string',
+        type: 'string' as MethodType,
       },
     ],
   },

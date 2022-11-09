@@ -1,4 +1,13 @@
-const CollectionTable = ({  rows, onDeleteClick, onDetailsClick }) => {
+import useCollection from "@hooks/useCollection"
+
+const CollectionTable = ({  rows }) => {
+ const {deleteItem} =  useCollection()
+
+//  console.log(rows);
+ 
+ 
+ if(!rows?.length) return null
+
   return (
     <div className="w-full overflow-x-auto ">
       <table className="table w-full">
@@ -16,7 +25,7 @@ const CollectionTable = ({  rows, onDeleteClick, onDetailsClick }) => {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => {
+          {rows?.map((row) => {
             return (
               <tr key={row.id} className="hover ">
                 <th>
@@ -37,7 +46,7 @@ const CollectionTable = ({  rows, onDeleteClick, onDetailsClick }) => {
                 </td>
                 <th className="w-0">
                   <button
-                    onClick={() => onDetailsClick(row)}
+                    onClick={()=>{}}
                     className="btn  btn-outline btn-info btn-xs"
                   >
                     details
@@ -45,7 +54,7 @@ const CollectionTable = ({  rows, onDeleteClick, onDetailsClick }) => {
                 </th>
                 <th className="w-0">
                   <button
-                    onClick={() => onDeleteClick(row)}
+                    onClick={() => deleteItem(row.id)}
                     className="btn  btn-outline btn-error btn-xs"
                   >
                     delete

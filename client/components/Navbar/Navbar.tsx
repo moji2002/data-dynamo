@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import ListBox from '@components/ListBox'
+import { ChangeEventHandler, useState } from 'react'
+import ListBox from '@components/Select'
 import themes from 'constants/themes'
 
-const Navbar = () => {
-  const [theme, setTheme] = useState(themes[0])
+const Navbar = ({ setDrawerOpen }: { setDrawerOpen: (e: boolean) => void }) => {
+  const [theme, setTheme] = useState(themes[0].value)
 
-  const onThemeChange = (e) => {
+  const onThemeChange:ChangeEventHandler<HTMLSelectElement> = (e) => {
     setTheme(e.target.value)
     document.body.setAttribute('data-theme', e.target.value)
   }
@@ -13,7 +13,10 @@ const Navbar = () => {
   return (
     <div className="navbar mb-4 bg-base-100 shadow-lg">
       <div className="flex-none">
-        <button className="btn btn-ghost btn-square">
+        <button
+          onClick={() => setDrawerOpen(true)}
+          className="btn btn-ghost btn-square"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -36,10 +39,11 @@ const Navbar = () => {
       </div>
       <div className="pr-4">
         <ListBox
+          name="theme-selector"
           className=""
-          options={themes}
-          selected={theme}
-          onChange={onThemeChange}
+          data={themes}
+          value={theme}
+          onSelect={onThemeChange}
         />
       </div>
       <div className="flex-none">

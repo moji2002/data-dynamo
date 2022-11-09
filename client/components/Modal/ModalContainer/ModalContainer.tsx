@@ -1,11 +1,18 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { FC, Fragment, ReactNode } from 'react'
 
-const Modal = ({ isOpen, setIsOpen, title, children }) => {
-  const closeModal = () => setIsOpen(false)
+type Props = {
+  isVisible: boolean
+  setVisible: (e: boolean) => void
+  title: string
+  children: ReactNode
+}
+
+const Modal: FC<Props> = ({ isVisible, setVisible, title, children }) => {
+  const closeModal = () => setVisible(false)
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show={isVisible} as={Fragment}>
       <Dialog as="div" className="relative z-20" onClose={closeModal}>
         <Transition.Child
           as={Fragment}
