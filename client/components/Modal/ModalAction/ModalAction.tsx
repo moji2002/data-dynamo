@@ -1,28 +1,28 @@
 import { FC, MouseEventHandler } from 'react'
 
 type Props = {
-  buttons: ActionButton[]
+  buttonsData: ActionButton[]
 }
 
 type ActionButton = {
-  name: string
+  label: string
   onClick: MouseEventHandler<HTMLButtonElement>
-  className: string
-  isLoading: boolean
+  className?: string
+  isLoading?: boolean
 }
 
-const ModalAction: FC<Props> = ({ buttons }) => {
+const ModalAction: FC<Props> = ({ buttonsData }) => {
   return (
     <div className="card-actions justify-end">
-      {buttons.map(({ name, onClick, className, isLoading }) => {
+      {buttonsData.map(({ label, onClick, className, isLoading }) => {
         return (
           <button
-            key={name}
+            key={label}
             disabled={isLoading}
             onClick={onClick}
             className={'btn ml-2 ' + className}
           >
-            {isLoading ? '...' : name}
+            {isLoading ? '...' : label}
           </button>
         )
       })}

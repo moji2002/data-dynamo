@@ -12,11 +12,11 @@ const Layout: FC<Props> = ({ children }) => {
 
   return (
     <>
-      <Drawer isDrawerOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}>
+      {/* <Drawer isDrawerOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}> */}
         <Navbar setDrawerOpen={setDrawerOpen} />
         <div className="container mx-auto px-4">{children}</div>
         {/* <Footer/> */}
-      </Drawer>
+      {/* </Drawer> */}
     </>
   )
 }

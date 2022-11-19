@@ -22,12 +22,15 @@ const useUsers = () => {
     queryClient.invalidateQueries(['users'])
   }
 
-  const postMutation = useMutation({
+  const userMutation = useMutation({
     mutationFn: (data: User) => api.post<User>('users', data),
     onSuccess() {
       invalidateUserQuery()
     },
   })
+
+  console.log('user mutation status: ' , userMutation);
+  
 
   const deleteMutation = useMutation({
     mutationFn: (id: number) => api.delete<number>('users/' + id),
@@ -45,7 +48,7 @@ const useUsers = () => {
       payload[key] = value
     })
 
-    postMutation.mutate(payload)
+    userMutation.mutate(payload)
   }
 
   const deleteUser = (userId: number) => {
@@ -56,7 +59,7 @@ const useUsers = () => {
     submitNewUser,
     deleteUser,
     query,
-    postMutation,
+    userMutation,
     deleteMutation,
   }
 }

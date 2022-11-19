@@ -3,97 +3,100 @@ import Select from '@components/Select'
 import TextInput from '@components/TextInput'
 import Toggle from '@components/Toggle'
 import { ChangeEvent, FC } from 'react'
-import { MethodOption, MethodType } from 'types/method'
+import { Element, ElementType } from 'types/method'
 
 type Props = {
-  methodOption: MethodOption
+  element: Element
   values: any
   setValues: Function
 }
 
-const Elements: FC<Props> = ({ methodOption, setValues, values }) => {
+const Elements: FC<Props> = ({ element, setValues, values }) => {
+
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('input',e)
+    setValues((prev) => {
+      return { ...prev, [e.target.name]: e.target.value }
+    })
   }
 
   const onToggle = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('input',e)
+    console.log('input', e)
   }
 
-  const onSelect = (e:ChangeEvent<HTMLSelectElement>)=>{
-    console.log('select',e);
-    
+  const onSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    console.log('select', e)
   }
 
-  const label = methodOption.label || methodOption.name
+  const label = element.label || element.name
 
-  if (methodOption.type === MethodType.range)
+  if (element.type === ElementType.rangeInput)
     return (
       <Range
-        name={methodOption.name}
-        value={values[methodOption.name]}
+        name={element.name}
+        value={values[element.name]}
         onChange={onChange}
         label={label}
-        max={methodOption.max}
-        min={methodOption.min}
-        step={methodOption.step}
+        max={element.max}
+        min={element.min}
+        step={element.step}
         // default={methodOption.default}
         // data={methodOption.items}
       />
     )
-  if (methodOption.type === MethodType.string)
+  if (element.type === ElementType.textInput)
     return (
       <TextInput
-        name={methodOption.name}
-        value={values[methodOption.name]}
+        name={element.name}
+        value={values[element.name]}
         onChange={onChange}
         label={label}
-        placeholder={methodOption.placeholder}
+        placeholder={element.placeholder}
         // default={methodOption.default}
         // data={methodOption.items}
       />
     )
-  if (methodOption.type === MethodType.stringArray)
+  if (element.type === ElementType.spaceSeparatedTextInput)
     return (
       <TextInput
-        name={methodOption.name}
-        value={values[methodOption.name]}
+        name={element.name}
+        value={values[element.name]}
         onChange={onChange}
         label={label}
-        placeholder={methodOption.placeholder}
+        placeholder={element.placeholder}
         // default={methodOption.default}
         // data={methodOption.items}
       />
     )
-  if (methodOption.type === MethodType.number)
+  if (element.type === ElementType.numberInput)
     return (
       <TextInput
-        name={methodOption.name}
-        value={values[methodOption.name]}
+        name={element.name}
+        value={values[element.name]}
         onChange={onChange}
         label={label}
-        placeholder={methodOption.placeholder}
+        placeholder={element.placeholder}
         // default={methodOption.default}
         // data={methodOption.items}
       />
     )
-  if (methodOption.type === MethodType.enum)
+  if (element.type === ElementType.selectInput)
     return (
       <Select
-        name={methodOption.name}
-        value={values[methodOption.name]}
+        name={element.name}
+        value={values[element.name]}
         onSelect={onSelect}
         label={label}
         // placeholder={methodOption.placeholder}
         // default={methodOption.default}
-        data={methodOption.items}
+        data={element.selectInputItems}
       />
     )
-  if (methodOption.type === MethodType.boolean)
+  if (element.type === ElementType.toggle)
     return (
       <Toggle
-        name={methodOption.name}
-        value={values[methodOption.name]}
+        name={element.name}
+        value={values[element.name]}
         onToggle={onToggle}
         label={label}
 

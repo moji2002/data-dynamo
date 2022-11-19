@@ -11,16 +11,17 @@ import DefaultLayout from '@components/DefaultLayout'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      networkMode: 'always',
+      // networkMode: 'offlineFirst',
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       retry: false,
       staleTime: 5 * 60 * 1000,
+      // queryFn:api
     },
   },
 })
 
-const Noop: FC<PropsWithChildren> = ({ children }) => <>{children}</>
+// const Noop: FC<PropsWithChildren> = ({ children }) => <>{children}</>
 
 function MyApp({ Component, pageProps }: AppProps) {
   const Layout = (Component as any).Layout || DefaultLayout

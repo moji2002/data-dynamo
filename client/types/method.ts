@@ -1,20 +1,21 @@
+import { ReactNode } from 'react'
 import { SelectItem } from './components'
 
-export enum MethodType {
-  enum = 'enum',
-  range = 'range',
-  number = 'number',
-  string = 'string',
-  stringArray = 'stringArray',
-  boolean = 'boolean',
+export enum ElementType {
+  selectInput = 'enum',
+  rangeInput = 'range',
+  numberInput = 'number',
+  textInput = 'string',
+  spaceSeparatedTextInput = 'stringArray',
+  toggle = 'boolean',
 }
 
-export type MethodOption = {
+export type Element = {
   name: string
   label?: string
-  desc: string
-  type: MethodType
-  items?: SelectItem[]
+  desc?: string
+  type: ElementType
+  selectInputItems?: SelectItem[]
   default?: string | number | boolean
   placeholder?: string
   min?: number
@@ -25,6 +26,15 @@ export type MethodOption = {
 export type Method = {
   name: string
   label?: string
-  desc: string
-  options: MethodOption[]
+  desc?: string
+  arguments?: Element[]
+}
+
+export type Column = {
+  id: string
+  label: ReactNode
+  render?: (a:any)=>ReactNode
+  name: string
+  minWidth?: number
+  onClick?: (e: any) => any
 }
