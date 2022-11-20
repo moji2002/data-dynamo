@@ -7,7 +7,7 @@ import Drawer from '@components/Drawer'
 import FieldsTable from '@components/FieldsTable'
 import ModalAction from '@components/Modal/ModalAction'
 import methods from 'constants/methods'
-import useCollection from '@hooks/useCollection'
+import useCollection from '@hooks/useCollections'
 
 const Collections = () => {
   const [isCollectionModalVisible, setCollectionModalVisible] = useState(false)

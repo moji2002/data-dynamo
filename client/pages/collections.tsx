@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useState } from 'react'
 import Table from '@components/Table'
 import ModalAction from '@components/Modal/ModalAction'
-import useCollection from '@hooks/useCollection'
+import useCollection from '@hooks/useCollections'
 import Modal from '@components/Modal/ModalContainer/ModalContainer'
 import ModalContent from '@components/Modal/ModalContent'
 import { Column, ElementType } from 'types/method'
@@ -46,7 +46,7 @@ const CollectionsPage = () => {
       name: 'delete',
     },
     {
-      id: '3',
+      id: '4',
       label: 'edit',
       render: (row) => (
         <button onClick={(e) => router.push(`collections/${row.id}`)} className="btn btn-primary">
