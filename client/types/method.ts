@@ -38,3 +38,9 @@ export type Column = {
   minWidth?: number
   onClick?: (e: any) => any
 }
+
+export type FieldsPayload = {
+  fieldName: string;
+  method: string;
+  arguments?: any;
+};

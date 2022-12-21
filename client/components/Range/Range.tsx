@@ -13,7 +13,7 @@ type Props = {
 const Range: FC<Props> = ({ min, max, step, onChange, value, label, name }) => {
   return (
     <>
-      {label && <div className="mb-1 px-1 capitalize">{label}</div>}
+      {label && <div className="p-2 capitalize">{label}</div>}
       <input
         name={name}
         type="range"

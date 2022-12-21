@@ -14,7 +14,11 @@ const ModalContent: FC<Props> = ({ elements, setValues, values }) => {
       {elements.map((element) => (
         <div key={element.name} className="mb-4 ">
           <Elements element={element} setValues={setValues} values={values} />
-          <div className="mb-2 px-1 text-xs">{element.desc}</div>
+          {element.desc && (
+            <div className="p-2 text-xs text-info-content">
+              {element.desc}
+            </div>
+          )}
         </div>
       ))}
     </>

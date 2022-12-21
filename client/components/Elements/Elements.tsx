@@ -21,12 +21,12 @@ const Elements: FC<Props> = ({ element, setValues, values }) => {
   }
 
   const onToggle = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('input', e)
+    // console.log('input', e)
+    setValues((prev) => {
+      return { ...prev, [e.target.name]: e.target.checked }
+    })
   }
 
-  const onSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log('select', e)
-  }
 
   const label = element.label || element.name
 
@@ -85,7 +85,7 @@ const Elements: FC<Props> = ({ element, setValues, values }) => {
       <Select
         name={element.name}
         value={values[element.name]}
-        onSelect={onSelect}
+        onChange={onChange}
         label={label}
         // placeholder={methodOption.placeholder}
         // default={methodOption.default}

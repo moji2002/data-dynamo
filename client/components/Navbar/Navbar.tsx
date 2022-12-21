@@ -38,13 +38,13 @@ const Navbar = ({ setDrawerOpen }: { setDrawerOpen: (e: boolean) => void }) => {
         </a>
       </div>
       <div className="pr-4">
-        {/* <ListBox
+        <ListBox
           name="theme-selector"
           className=""
           data={themes}
           value={theme}
-          onSelect={onThemeChange}
-        /> */}
+          onChange={onThemeChange}
+        />
       </div>
       <div className="flex-none">
         <button className="btn btn-ghost btn-square">

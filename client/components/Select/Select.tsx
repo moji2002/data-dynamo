@@ -4,7 +4,7 @@ import { ChangeEventHandler, FC } from 'react'
 type Props = {
   data?: SelectItem[]
   value: string
-  onSelect: ChangeEventHandler<HTMLSelectElement>
+  onChange: ChangeEventHandler<HTMLSelectElement>
   className?: string
   label?: string
   name: string
@@ -13,26 +13,26 @@ type Props = {
 const Select: FC<Props> = ({
   data = [],
   value,
-  onSelect,
+  onChange,
   className = '',
   label,
   name,
 }) => {
   return (
     <>
-      {label && <div className="mb-1 px-1 capitalize">{label}</div>}
+      {label && <div className="mb-2 px-1 capitalize">{label}</div>}
 
       <select
         className={
-          'select select-bordered select-sm w-full max-w-xs ' + className
+          'select select-bordered w-full  ' + className
         }
-        onChange={onSelect}
+        onChange={onChange}
         name={name}
       >
+        <option value="">Please Select</option>
         {data.map((item) => (
           <option
             disabled={item.value === value}
-            selected={item.value === value}
             key={item.value}
             value={item.value}
           >

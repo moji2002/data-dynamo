@@ -17,13 +17,13 @@ const TextInput: FC<Props> = ({
 }) => {
   return (
     <>
-      {label && <div className="mb-1 px-1 capitalize">{label}</div>}
+      {label && <div className="p-2 capitalize">{label}</div>}
       <input
         name={name}
         type="text"
         value={value}
         placeholder={placeholder}
-        className="input input-bordered input-primary mb-2 w-full"
+        className="input input-bordered input-primary w-full"
         onChange={onChange}
       />
     </>

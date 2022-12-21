@@ -1,6 +1,6 @@
 import type { Method, ElementType } from '../types/method'
 
-const methods: Method[] = [
+ const methods: Method[] = [
   {
     name: 'natural',
     label: 'number',

@@ -9,7 +9,7 @@ type Props = {
 
 const Toggle: FC<Props> = ({ label, onToggle, value, name }) => {
   return (
-    <div className="form-control mb-2 w-1/2">
+    <div className="form-control w-1/2">
       <label className="label cursor-pointer">
         {label && <span className="label-text">{label}</span>}
         <input
