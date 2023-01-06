@@ -1,0 +1,35 @@
+import { SelectInputItem } from 'types/components'
+
+const themes: SelectInputItem[] = [
+  { label: 'light', value: 'light' },
+  { label: 'dark', value: 'dark' },
+  { label: 'lofi', value: 'lofi' },
+  { label: 'wireframe', value: 'wireframe' },
+  { label: 'cyberpunk', value: 'cyberpunk' },
+  { label: 'winter', value: 'winter' },
+  { label: 'coffee', value: 'coffee' },
+  { label: 'retro', value: 'retro' },
+  { label: 'dracula', value: 'dracula' },
+  { label: 'valentine', value: 'valentine' },
+  // { label: 'aqua', value: 'aqua' },
+  // { label: 'cupcake', value: 'cupcake' },
+  // { label: 'forest', value: 'forest' },
+  // { label: 'garden', value: 'garden' },
+  // { label: 'halloween', value: 'halloween' },
+  // { label: 'synthwave', value: 'synthwave' },
+  // { label: 'corporate', value: 'corporate' },
+  // { label: 'emerald', value: 'emerald' },
+  // { label: 'bumblebee', value: 'bumblebee' },
+  // { label: 'night', value: 'night' },
+  // { label: 'lemonade', value: 'lemonade' },
+  // { label: 'acid', value: 'acid' },
+  // { label: 'business', value: 'business' },
+  // { label: 'autumn', value: 'autumn' },
+  // { label: 'cmyk', value: 'cmyk' },
+  // { label: 'luxury', value: 'luxury' },
+  // { label: 'black', value: 'black' },
+  // { label: 'fantasy', value: 'fantasy' },
+  // { label: 'pastel', value: 'pastel' },
+]
+
+export default themes
