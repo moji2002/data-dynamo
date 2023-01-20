@@ -28,6 +28,7 @@ const Select: FC<Props> = ({
         }
         onChange={onChange}
         name={name}
+        value={value}
       >
         <option value="">Please Select</option>
         {data.map((item) => (
