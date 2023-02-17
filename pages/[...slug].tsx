@@ -1,4 +1,4 @@
-import Card from '@components/Card/Card'
+import Card from '@components/Card'
 import Head from 'next/head'
 import { useEffect, useMemo, useState } from 'react'
 import Table from '@components/Table'
@@ -19,7 +19,7 @@ const CollectionsDetails = () => {
   const [methodProperties, setMethodProperties] = useState<any>({})
   const router = useRouter()
 
-  console.log(methodProperties)
+  // console.log(methodProperties)
 
   const collectionId = useMemo(() => {
     if (router.query.slug && Array.isArray(router.query.slug))
@@ -33,9 +33,9 @@ const CollectionsDetails = () => {
   } = useCollectionFields(collectionId)
 
 
-  const closeModal = () => {
+  const closeModal = () => 
     setFieldModalVisible(false)
-  }
+  
 
   const onEdit = (id: string) => {
     const selectedMethod = fields?.find((field) => field.id === id)
