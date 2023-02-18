@@ -3,11 +3,12 @@ import { ChangeEventHandler, FC } from 'react'
 
 type Props = {
   data?: SelectInputItem[]
-  value: string
-  onChange: ChangeEventHandler<HTMLSelectElement>
+  value?: string
+  onChange?: ChangeEventHandler<HTMLSelectElement>
   className?: string
   label?: string
-  name: string
+  name?: string
+  defaultValue?: string | number
 }
 
 const Select: FC<Props> = ({
@@ -17,6 +18,7 @@ const Select: FC<Props> = ({
   className = '',
   label,
   name,
+  defaultValue,
 }) => {
   return (
     <>
@@ -27,6 +29,7 @@ const Select: FC<Props> = ({
         onChange={onChange}
         name={name}
         value={value}
+        defaultValue={defaultValue}
       >
         <option value="">Please Select</option>
         {data.map((item) => (

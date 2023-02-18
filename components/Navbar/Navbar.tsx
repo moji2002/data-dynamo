@@ -1,5 +1,5 @@
 import { ChangeEventHandler, useState } from 'react'
-import ListBox from '@components/Select'
+import Select from '@components/core/Select'
 import themes from 'constants/themes'
 
 const Navbar = ({ setDrawerOpen }: { setDrawerOpen: (e: boolean) => void }) => {
@@ -38,7 +38,7 @@ const Navbar = ({ setDrawerOpen }: { setDrawerOpen: (e: boolean) => void }) => {
         </a>
       </div>
       <div className="pr-4">
-        <ListBox
+        <Select
           name="theme-selector"
           className=""
           data={themes}

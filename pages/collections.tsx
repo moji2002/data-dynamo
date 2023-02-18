@@ -1,11 +1,11 @@
-import Card from '@components/Card/Card'
+import Card from '@components/core/Card/Card'
 import Head from 'next/head'
 import { useState } from 'react'
-import Table from '@components/Table'
-import ModalAction from '@components/Modal/ModalAction'
+import Table from '@components/core/Table'
+import ModalAction from '@components/core/Modal/ModalAction'
 import useCollection from '@hooks/useCollections'
-import Modal from '@components/Modal/ModalContainer/ModalContainer'
-import ModalContent from '@components/Modal/ModalContent'
+import Modal from '@components/core/Modal/ModalContainer/ModalContainer'
+import ModalContent from '@components/core/Modal/ModalContent'
 import { InputType } from 'types/method'
 import { useRouter } from 'next/router'
 
@@ -102,7 +102,7 @@ const CollectionsPage = () => {
           setValues={setModalState}
           elements={collectionModalProperties.elements}
         />
-        <ModalAction buttonsData={collectionModalProperties.buttonsData} />
+        <ModalAction actionButtons={collectionModalProperties.buttonsData} />
       </Modal>
       <div className="grid grid-cols-1 gap-4 2xl:grid-cols-2">
         <Card>

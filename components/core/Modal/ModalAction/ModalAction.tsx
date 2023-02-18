@@ -1,7 +1,7 @@
 import { FC, MouseEventHandler } from 'react'
 
 type Props = {
-  buttonsData: ActionButton[]
+  actionButtons: ActionButton[]
 }
 
 type ActionButton = {
@@ -11,10 +11,10 @@ type ActionButton = {
   isLoading?: boolean
 }
 
-const ModalAction: FC<Props> = ({ buttonsData }) => {
+const ModalAction: FC<Props> = ({ actionButtons }) => {
   return (
     <div className="card-actions justify-end">
-      {buttonsData.map(({ label, onClick, className, isLoading }) => {
+      {actionButtons.map(({ label, onClick, className, isLoading }) => {
         return (
           <button
             key={label}

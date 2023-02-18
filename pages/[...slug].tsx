@@ -1,10 +1,10 @@
-import Card from '@components/Card'
+import Card from '@components/core/Card'
 import Head from 'next/head'
 import { useEffect, useMemo, useState } from 'react'
-import Table from '@components/Table'
-import ModalAction from '@components/Modal/ModalAction'
-import Modal from '@components/Modal/ModalContainer/ModalContainer'
-import ModalContent from '@components/Modal/ModalContent'
+import Table from '@components/core/Table'
+import ModalAction from '@components/core/Modal/ModalAction'
+import Modal from '@components/core/Modal/ModalContainer/ModalContainer'
+import ModalContent from '@components/core/Modal/ModalContent'
 import { TableColumn, InputType, Method, DynamicInputProp } from 'types/method'
 import { useRouter } from 'next/router'
 import useCollectionFields from '@hooks/useCollectionFields'
@@ -131,7 +131,7 @@ const CollectionsDetails = () => {
           setValues={setMethodProperties}
           elements={modalInputs}
         />
-        <ModalAction buttonsData={fieldModalButtonsData} />
+        <ModalAction actionButtons={fieldModalButtonsData} />
       </Modal>
       <div className="grid grid-cols-1 gap-4 2xl:grid-cols-2">
         <Card>

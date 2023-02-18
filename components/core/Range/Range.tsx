@@ -5,12 +5,22 @@ type Props = {
   min?: number
   max?: number
   step?: number
-  onChange: ChangeEventHandler<HTMLInputElement>
-  value: number
-  name: string
+  onChange?: ChangeEventHandler<HTMLInputElement>
+  value?: number
+  name?: string
+  defaultValue?: string | number
 }
 
-const Range: FC<Props> = ({ min, max, step, onChange, value, label, name }) => {
+const Range: FC<Props> = ({
+  min,
+  max,
+  step,
+  onChange,
+  value,
+  label,
+  name,
+  defaultValue,
+}) => {
   return (
     <>
       {label && <div className="p-2 capitalize">{label}</div>}
@@ -22,6 +32,7 @@ const Range: FC<Props> = ({ min, max, step, onChange, value, label, name }) => {
         step={step}
         onChange={onChange}
         value={value}
+        defaultValue={defaultValue}
         className="range range-primary mb-1"
       />
     </>

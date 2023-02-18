@@ -1,7 +1,7 @@
-import Range from '@components/Range'
-import Select from '@components/Select'
-import TextInput from '@components/TextInput'
-import Toggle from '@components/Toggle'
+import Range from '@components/core/Range'
+import Select from '@components/core/Select'
+import TextInput from '@components/core/TextInput'
+import Toggle from '@components/core/Toggle'
 import { ChangeEvent, FC } from 'react'
 import { DynamicInputProp, InputType } from 'types/method'
 

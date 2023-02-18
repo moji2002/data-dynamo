@@ -1,4 +1,12 @@
-const Drawer = ({ children, isDrawerOpen, setDrawerOpen }) => {
+import { FC, ReactNode } from 'react'
+
+type Props = {
+  children: ReactNode
+  isDrawerOpen: boolean
+  setDrawerOpen: (open: boolean) => any
+}
+
+const Drawer: FC<Props> = ({ children, isDrawerOpen, setDrawerOpen }) => {
   return (
     <>
       {isDrawerOpen && (
