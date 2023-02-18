@@ -8,10 +8,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "find:unused": "npx next-unused"
+    "find:unused": "npx next-unused",
+    "prettier": "prettier --write ."
   },
   "sideEffects": false,
-  "dependencies": { 
+  "dependencies": {
     "@headlessui/react": "^1.7.3",
     "@heroicons/react": "^2.0.11",
     "@tanstack/react-query": "^4.12.0",

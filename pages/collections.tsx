@@ -6,7 +6,7 @@ import ModalAction from '@components/Modal/ModalAction'
 import useCollection from '@hooks/useCollections'
 import Modal from '@components/Modal/ModalContainer/ModalContainer'
 import ModalContent from '@components/Modal/ModalContent'
-import { TableColumn, InputType } from 'types/method'
+import { InputType } from 'types/method'
 import { useRouter } from 'next/router'
 
 const CollectionsPage = () => {
@@ -21,9 +21,7 @@ const CollectionsPage = () => {
     postMutation: collectionPostMutation,
   } = useCollection()
 
-  const closeNewCollectionModal = () => {
-    setCollectionModalVisible(false)
-  }
+  const closeNewCollectionModal = () => setCollectionModalVisible(false)
 
   const createNewCollection = async () => {
     const result = await postCollection(modalState)
@@ -32,7 +30,7 @@ const CollectionsPage = () => {
     }
   }
 
-  const collectionColumns: TableColumn[] = [
+  const collectionColumns = [
     { id: '1', label: 'name', name: 'name' },
     { id: '2', label: 'desc', name: 'desc' },
     {
@@ -49,7 +47,10 @@ const CollectionsPage = () => {
       id: '4',
       label: 'edit',
       render: (row) => (
-        <button onClick={(e) => router.push(`collections/${row.id}`)} className="btn btn-primary">
+        <button
+          onClick={(e) => router.push(`collections/${row.id}`)}
+          className="btn btn-primary"
+        >
           edit
         </button>
       ),

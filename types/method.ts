@@ -2,12 +2,12 @@ import { ReactNode } from 'react'
 import { SelectInputItem } from './components'
 
 export enum InputType {
-  select = 'enum',
+  select = 'select',
   range = 'range',
   number = 'number',
-  text = 'string',
-  spaceSeparatedText = 'stringArray',
-  toggle = 'boolean',
+  text = 'text',
+  stringArray = 'stringArray',
+  toggle = 'toggle',
 }
 
 export interface DynamicInputProp {
@@ -28,13 +28,4 @@ export type Method = {
   label?: string
   desc?: string
   arguments?: any[]
-}
-
-export type TableColumn = {
-  id?: string
-  label?: ReactNode
-  render?: (a: any) => ReactNode
-  name: string
-  minWidth?: number
-  onClick?: (e: any) => any
 }

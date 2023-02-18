@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 
 interface CollectionField extends Method {
   collectionId: string
-  id:string
+  id: string
 }
 
 const useCollectionFields = (id: string | undefined, queryParams: any = {}) => {
@@ -30,11 +30,10 @@ const useCollectionFields = (id: string | undefined, queryParams: any = {}) => {
     if (!id) return
 
     fetchData()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
   // queryClient.
-
 
   const invalidateQuery = () => {
     queryClient.invalidateQueries(['fields', 'collections'])

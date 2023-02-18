@@ -5,7 +5,7 @@ import themes from 'constants/themes'
 const Navbar = ({ setDrawerOpen }: { setDrawerOpen: (e: boolean) => void }) => {
   const [theme, setTheme] = useState(themes[0].value)
 
-  const onThemeChange:ChangeEventHandler<HTMLSelectElement> = (e) => {
+  const onThemeChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setTheme(e.target.value)
     document.body.setAttribute('data-theme', e.target.value)
   }

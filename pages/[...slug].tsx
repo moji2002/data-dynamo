@@ -32,10 +32,7 @@ const CollectionsDetails = () => {
     deleteItem,
   } = useCollectionFields(collectionId)
 
-
-  const closeModal = () => 
-    setFieldModalVisible(false)
-  
+  const closeModal = () => setFieldModalVisible(false)
 
   const onEdit = (id: string) => {
     const selectedMethod = fields?.find((field) => field.id === id)
@@ -98,8 +95,6 @@ const CollectionsDetails = () => {
       onClick: closeModal,
     },
   ]
-
-
 
   const modalInputs: DynamicInputProp[] = [
     {

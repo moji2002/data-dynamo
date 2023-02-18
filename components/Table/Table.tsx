@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react'
-import { TableColumn } from 'types/method'
+import { TableColumn } from './types'
 
 type Props = {
   data: any[]

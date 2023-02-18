@@ -36,7 +36,7 @@ const useCollection = () => {
   const deleteItem = (userId: number) => {
     deleteMutation.mutate(userId)
   }
-  
+
   return {
     data: query.data?.data,
     postItem: postMutation.mutateAsync,

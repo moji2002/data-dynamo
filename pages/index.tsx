@@ -15,7 +15,6 @@ const Home = () => {
         <title>Cool JSON Placeholder</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
     </>
   )
 }

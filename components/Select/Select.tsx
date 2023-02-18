@@ -23,9 +23,7 @@ const Select: FC<Props> = ({
       {label && <div className="mb-2 px-1 capitalize">{label}</div>}
 
       <select
-        className={
-          'select select-bordered w-full' + className
-        }
+        className={'select select-bordered w-full' + className}
         onChange={onChange}
         name={name}
         value={value}

@@ -1,6 +1,6 @@
 import type { Method, InputType } from '../types/method'
 
- const methods: Method[] = [
+const methods: Method[] = [
   {
     name: 'natural',
     label: 'number',

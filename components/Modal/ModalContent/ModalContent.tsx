@@ -9,17 +9,12 @@ type Props = {
 }
 
 const ModalContent: FC<Props> = ({ elements, setValues, values }) => {
-  
   return (
     <>
       {elements.map((element) => (
         <div key={element.name} className="mb-4 ">
           <Elements input={element} setValues={setValues} values={values} />
-          {element.desc && (
-            <div className="p-2 text-xs ">
-              {element.desc}
-            </div>
-          )}
+          {element.desc && <div className="p-2 text-xs ">{element.desc}</div>}
         </div>
       ))}
     </>

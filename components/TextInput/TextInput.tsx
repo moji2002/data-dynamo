@@ -15,7 +15,6 @@ const TextInput: FC<Props> = ({
   placeholder,
   name,
 }) => {
-
   return (
     <>
       {label && <div className="p-2 capitalize">{label}</div>}

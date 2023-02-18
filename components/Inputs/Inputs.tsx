@@ -12,8 +12,6 @@ type Props = {
 }
 
 const Inputs: FC<Props> = ({ input, setValues, values }) => {
-
-
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => {
       return { ...prev, [e.target.name]: e.target.value }
@@ -25,7 +23,6 @@ const Inputs: FC<Props> = ({ input, setValues, values }) => {
       return { ...prev, [e.target.name]: e.target.checked }
     })
   }
-
 
   const label = input.label || input.name
 
