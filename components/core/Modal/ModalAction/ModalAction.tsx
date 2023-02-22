@@ -1,14 +1,8 @@
-import { FC, MouseEventHandler } from 'react'
+import { FC } from 'react'
+import { ActionButton } from 'types/components'
 
 type Props = {
   actionButtons: ActionButton[]
-}
-
-type ActionButton = {
-  label: string
-  onClick: MouseEventHandler<HTMLButtonElement>
-  className?: string
-  isLoading?: boolean
 }
 
 const ModalAction: FC<Props> = ({ actionButtons }) => {

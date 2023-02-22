@@ -1,11 +1,11 @@
-import Elements from '@components/Inputs'
+import TextInput from '@components/core/TextInput/TextInput'
 import { FC } from 'react'
-import { DynamicInputProp } from 'types/method'
+import { DynamicInputProps, InputType } from 'types/method'
 
 type Props = {
-  elements: DynamicInputProp[]
-  setValues: (e: any) => any
-  values: any
+  elements: DynamicInputProps[]
+  setValues?: (e: any) => any
+  values?: any
 }
 
 const ModalContent: FC<Props> = ({ elements, setValues, values }) => {
@@ -13,7 +13,15 @@ const ModalContent: FC<Props> = ({ elements, setValues, values }) => {
     <>
       {elements.map((element) => (
         <div key={element.name} className="mb-4 ">
-          <Elements input={element} setValues={setValues} values={values} />
+          {element.type === InputType.text && (
+            <TextInput
+              key={element.name}
+              defaultValue={element.defaultValue}
+              name={element.name}
+              placeholder={element.placeholder}
+              label={element.label}
+            />
+          )}
           {element.desc && <div className="p-2 text-xs ">{element.desc}</div>}
         </div>
       ))}

@@ -12,7 +12,7 @@ type Props = {
 const TextInput: FC<Props> = ({
   label,
   onChange,
-  value = '',
+  value,
   placeholder,
   name,
   defaultValue,

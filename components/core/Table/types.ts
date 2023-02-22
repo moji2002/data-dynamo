@@ -1,10 +1,9 @@
 import { ReactNode } from 'react'
 
-export type TableColumn = {
+export interface TableColumn<T> {
   id?: string
   label?: ReactNode
-  render?: (a: any) => ReactNode
+  render?: (item: T) => ReactNode
   name: string
   minWidth?: number
-  onClick?: (e: any) => any
 }

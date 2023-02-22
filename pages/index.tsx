@@ -6,7 +6,7 @@ const Home = () => {
   const router = useRouter()
 
   useEffect(() => {
-    router.push('/collections')
+    router.push('/database-collections')
   })
 
   return (
