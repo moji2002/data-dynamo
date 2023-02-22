@@ -17,7 +17,7 @@
     "incremental": true,
 
     "paths": {
-      "@lib/*": ["lib/*"],
+      "@libs/*": ["libs/*"],
       "@utils/*": ["utils/*"],
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
