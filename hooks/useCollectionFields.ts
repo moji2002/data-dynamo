@@ -3,37 +3,27 @@ import api from 'libs/api'
 import { InputType, Method } from 'types/method'
 import qs from 'qs'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 interface CollectionField extends Method {
   collectionId: string
   id: string
 }
 
-const useCollectionFields = (id: string | undefined, queryParams: any = {}) => {
+const URI = 'collection-fields'
+
+const useCollectionFields = () => {
   const queryClient = useQueryClient()
-  const [data, setData] = useState<CollectionField[] | null>(null)
+  const router = useRouter()
 
-  const fetchData = async () => {
-    try {
-      const result = await api(
-        'fields/' + '?' + qs.stringify({ collectionId: id })
-      )
-      if (result.status === 200) {
-        setData(result.data)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const query = useQuery({
+    queryKey: ['fields'],
+    queryFn: () =>
+      api<{ fields: CollectionField[] }>(URI, {
+        params: { id: router.query.id },
+      }),
+  })
 
-  useEffect(() => {
-    if (!id) return
-
-    fetchData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
-
-  // queryClient.
 
   const invalidateQuery = () => {
     queryClient.invalidateQueries(['fields', 'collections'])
@@ -45,7 +35,7 @@ const useCollectionFields = (id: string | undefined, queryParams: any = {}) => {
 
     onSuccess() {
       invalidateQuery()
-      fetchData()
+      // fetchData()
     },
   })
 
@@ -53,7 +43,7 @@ const useCollectionFields = (id: string | undefined, queryParams: any = {}) => {
     mutationFn: (id: number) => api.delete<number>('fields/' + id),
     onSuccess() {
       invalidateQuery()
-      fetchData()
+      // fetchData()
     },
   })
 
@@ -82,7 +72,7 @@ const useCollectionFields = (id: string | undefined, queryParams: any = {}) => {
   return {
     postNewField,
     deleteItem,
-    data,
+    data: query.data?.data,
   }
 }
 

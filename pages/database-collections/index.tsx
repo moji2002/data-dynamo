@@ -17,7 +17,7 @@ const DatabaseCollectionsPage = () => {
   const router = useRouter()
 
   const {
-    databaseCollections,
+    allCollections: databaseCollections,
     deleteDatabaseCollections,
     postDatabaseCollections,
   } = useDatabaseCollection()
@@ -30,6 +30,7 @@ const DatabaseCollectionsPage = () => {
     e.preventDefault()
 
     postDatabaseCollections(new FormData(e.currentTarget))
+    setModalVisible(false)
 
     // const result = await postCollection(new FormData(e.currentTarget))
     // if (result.status === 201) {
@@ -58,7 +59,7 @@ const DatabaseCollectionsPage = () => {
       label: 'edit',
       render: (row) => (
         <button
-          onClick={(e) => router.push(`collections/${row.id}`)}
+          onClick={(e) => router.push(`database-collections/${row.id}`)}
           className="btn btn-primary"
         >
           edit
@@ -71,7 +72,7 @@ const DatabaseCollectionsPage = () => {
   const databaseCollectionModalInputs: DynamicInputProps[] = [
     {
       type: InputType.text,
-      name: 'collectionName',
+      name: 'name',
       label: 'collection name',
     },
     {
@@ -91,7 +92,10 @@ const DatabaseCollectionsPage = () => {
     {
       label: 'cancel',
       className: 'btn-outline btn-error',
-      onClick: closeNewCollectionModal,
+      onClick: (e) => {
+        e.preventDefault()
+        closeNewCollectionModal()
+      },
     },
   ]
 
@@ -123,7 +127,7 @@ const DatabaseCollectionsPage = () => {
                 >
                   add collection
                 </button>
-                <button className="btn btn-outline btn-error">delete</button>
+                {/* <button className="btn btn-outline btn-error">delete</button> */}
               </div>
             </div>
             {/* <p className="mb-4 flex-grow-0">

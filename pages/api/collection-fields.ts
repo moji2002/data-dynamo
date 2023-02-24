@@ -1,31 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { DatabaseCollectionItem } from 'types/types'
 import formParser from 'libs/formParser'
-
 import db from '@libs/db'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // if(req.method === '')
-
- const result = await db.user.create({
-    data: {
-      email: 'fsadf@fds.com',
-      id: 34,
-      name: 'fdsf',
-    },
-  })
-
-  // console.log(req.query)
+if(req.method === 'get'){
+ const result =  db.collection.findMany()
+}
 
 
-
-  // form.uploadDir = "./";
-  // form.keepExtensions = true;
-
-  res.status(200).json({ result })
+  res.status(200).json({})
 }
 
 export const config = {
