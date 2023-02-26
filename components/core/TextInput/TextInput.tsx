@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC } from 'react'
+import { ChangeEventHandler, FC, HTMLInputTypeAttribute } from 'react'
 
 type Props = {
   label?: string
@@ -7,6 +7,7 @@ type Props = {
   placeholder?: string
   name?: string
   defaultValue?: string | number
+  type?: HTMLInputTypeAttribute
 }
 
 const TextInput: FC<Props> = ({
@@ -16,13 +17,14 @@ const TextInput: FC<Props> = ({
   placeholder,
   name,
   defaultValue,
+  type = 'text',
 }) => {
   return (
     <>
       {label && <div className="p-2 capitalize">{label}</div>}
       <input
         name={name}
-        type="text"
+        type={type}
         value={value}
         defaultValue={defaultValue}
         placeholder={placeholder}

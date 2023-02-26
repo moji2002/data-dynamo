@@ -1,4 +1,4 @@
-import type { Method, InputType } from '../types/method'
+import { Method, InputType } from '../types/method'
 
 const methods: Method[] = [
   {
@@ -8,17 +8,17 @@ const methods: Method[] = [
     arguments: [
       {
         name: 'min',
-        type: 'number' as InputType,
+        type: InputType.number,
         desc: 'Can optionally provide min',
       },
       {
         name: 'max',
-        type: 'number' as InputType,
+        type: InputType.number,
         desc: 'Can optionally provide max',
       },
       {
         name: 'excludes',
-        type: 'number' as InputType,
+        type: InputType.number,
         desc: 'numbers you wish to exclude',
       },
     ],
@@ -32,8 +32,8 @@ const methods: Method[] = [
       {
         name: 'nationality',
         desc: 'Optionally specify a nationality to limit first names to those most common of that nationality',
-        type: 'enum' as InputType,
-        selectInputItems: [
+        type: InputType.select,
+        list: [
           { label: 'us', value: 'us' },
           { label: 'it', value: 'it' },
         ],
@@ -41,8 +41,8 @@ const methods: Method[] = [
       {
         name: 'gender',
         desc: 'Optionally specify a gender to limit first names to that gender',
-        type: 'enum' as InputType,
-        selectInputItems: [
+        type: InputType.select,
+        list: [
           { label: 'female', value: 'female' },
           { label: 'male', value: 'male' },
         ],
@@ -58,8 +58,8 @@ const methods: Method[] = [
       {
         name: 'nationality',
         desc: 'Optionally specify a nationality to limit first names to those most common of that nationality',
-        type: 'enum' as InputType,
-        selectInputItems: [
+        type: InputType.select,
+        list: [
           { label: 'en', value: 'en' },
           { label: 'it', value: 'it' },
           { label: 'nl', value: 'nl' },
@@ -80,7 +80,8 @@ const methods: Method[] = [
       {
         name: 'domain',
         desc: 'Optionally specify a domain and the email will be random but the domain will not.',
-        type: 'string' as InputType,
+        type: InputType.text,
+
         placeholder: 'gmail.com',
       },
     ],
@@ -93,8 +94,8 @@ const methods: Method[] = [
       {
         name: 'type',
         desc: 'Optionally specify one of a handful of enumerated age types.',
-        type: 'enum' as InputType,
-        selectInputItems: [
+        type: InputType.select,
+        list: [
           { label: 'child', value: 'child' },
           { label: 'teen', value: 'teen' },
           { label: 'adult', value: 'adult' },
@@ -111,7 +112,7 @@ const methods: Method[] = [
       {
         name: 'sentences',
         desc: 'Optionally specify the number of sentences in the paragraph.',
-        type: 'number' as InputType,
+        type: InputType.number,
       },
     ],
   },
@@ -123,7 +124,7 @@ const methods: Method[] = [
         name: 'extraGenders',
         label: 'extra genders',
         desc: 'Optionally specify the number of sentences in the paragraph.',
-        type: 'stringArray' as InputType,
+        type: InputType.text,
         placeholder: 'Agender Genderqueer Trans Pangender',
       },
     ],
@@ -135,8 +136,8 @@ const methods: Method[] = [
       {
         name: 'type',
         desc: 'Optionally specify a specific type of animal',
-        type: 'enum' as InputType,
-        selectInputItems: [
+        type: InputType.select,
+        list: [
           { label: 'ocean', value: 'ocean' },
           { label: 'desert', value: 'desert' },
           { label: 'grassland', value: 'grassland' },
@@ -155,8 +156,8 @@ const methods: Method[] = [
       {
         name: 'type',
         desc: 'These are the kinds usable in HTML or CSS. The type can optionally be specified',
-        type: 'enum' as InputType,
-        selectInputItems: [
+        type: InputType.select,
+        list: [
           { label: 'hex', value: 'hex' },
           { label: 'shorthex', value: 'shorthex' },
           { label: 'rgb', value: 'rgb' },
@@ -166,7 +167,7 @@ const methods: Method[] = [
       {
         name: 'grayscale',
         desc: 'Can optionally specify that only grayscale colors be generated',
-        type: 'boolean' as InputType,
+        type: InputType.toggle,
       },
     ],
   },
@@ -183,7 +184,7 @@ const methods: Method[] = [
       {
         name: 'tld',
         desc: 'Optionally specify a tld and the domain will be random but the tld will not.',
-        type: 'string' as InputType,
+        type: InputType.text,
       },
     ],
   },
@@ -194,32 +195,32 @@ const methods: Method[] = [
       {
         name: 'protocol',
         desc: 'Optionally specify a protocol and the url will be random but the protocol will not.',
-        type: 'string' as InputType,
+        type: InputType.text,
         placeholder: 'ftp',
       },
       {
         name: 'domain',
         desc: 'Optionally specify a domain and the url will be random but the domain will not.',
-        type: 'string' as InputType,
+        type: InputType.text,
         placeholder: 'www.socialradar.com',
       },
       {
         name: 'domain_prefix',
         label: 'domain prefix',
         desc: 'Optionally specify a domain prefix and domain will be random, and domain prefix will not.',
-        type: 'string' as InputType,
+        type: InputType.text,
         placeholder: 'docs',
       },
       {
         name: 'path',
         desc: 'Optionally specify a path and it will be obeyed.',
-        type: 'string' as InputType,
+        type: InputType.text,
         placeholder: 'images',
       },
       {
         name: 'extensions',
         desc: 'Optionally specify an array of extensions and one will be picked at random.',
-        type: 'stringArray' as InputType,
+        type: InputType.text,
         placeholder: 'gif jpg png',
       },
     ],
@@ -233,8 +234,8 @@ const methods: Method[] = [
         name: 'full',
         label: 'Full country name',
         desc: 'Optionally specify that it ought to return a full country name.',
-        type: 'boolean' as InputType,
-        default: true,
+        type: InputType.toggle,
+        defaultValue: true,
       },
     ],
   },
@@ -261,25 +262,25 @@ const methods: Method[] = [
         name: 'string',
         label: 'String',
         desc: 'Can optionally specify that a date be returned as a string',
-        type: 'boolean' as InputType,
-        default: false,
+        type: InputType.toggle,
+        defaultValue: false,
       },
       {
         name: 'american',
         label: 'American',
         desc: 'Dates in DD/MM/YYYY format',
-        type: 'boolean' as InputType,
-        default: false,
+        type: InputType.toggle,
+        defaultValue: false,
       },
       {
         name: 'year',
         desc: 'Optionally specify defaults for year.',
-        type: 'number' as InputType,
+        type: InputType.number,
       },
       {
         name: 'month',
         desc: 'Optionally specify defaults for of month',
-        type: 'range' as InputType,
+        type: InputType.range,
         min: 1,
         max: 12,
         step: 1,
@@ -287,7 +288,7 @@ const methods: Method[] = [
       {
         name: 'day',
         desc: 'Optionally specify defaults for of day',
-        type: 'range' as InputType,
+        type: InputType.range,
         min: 1,
         max: 31,
         step: 1,
@@ -302,8 +303,8 @@ const methods: Method[] = [
         name: 'weekday_only',
         label: 'Only workdays',
         desc: 'It will never return Saturday or Sunday.',
-        type: 'boolean' as InputType,
-        default: false,
+        type: InputType.toggle,
+        defaultValue: false,
       },
     ],
   },
@@ -314,17 +315,17 @@ const methods: Method[] = [
       {
         name: 'width',
         desc: 'set image width',
-        type: 'number' as InputType,
+        type: InputType.number,
       },
       {
         name: 'height',
         desc: 'set image height',
-        type: 'number' as InputType,
+        type: InputType.number,
       },
       {
         name: 'search',
         desc: 'Generate images from search terms.',
-        type: 'string' as InputType,
+        type: InputType.text,
       },
     ],
   },

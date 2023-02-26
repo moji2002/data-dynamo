@@ -41,7 +41,7 @@ const Navbar = ({ setDrawerOpen }: { setDrawerOpen: (e: boolean) => void }) => {
         <Select
           name="theme-selector"
           className=""
-          data={themes}
+          list={themes}
           value={theme}
           onChange={onThemeChange}
         />

@@ -1,8 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import api from 'libs/api'
 import { InputType, Method } from 'types/method'
-import qs from 'qs'
-import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 interface CollectionField extends Method {
@@ -46,6 +44,8 @@ const useCollectionFields = () => {
       // fetchData()
     },
   })
+
+
 
   // const newFiled: CollectionField = {
   //   collectionId: id || '',

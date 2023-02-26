@@ -39,7 +39,7 @@ const DatabaseCollectionsPage = () => {
   }
 
   const databaseCollectionColumns: TableColumn<DatabaseCollectionItem>[] = [
-    { id: '1', label: 'name', name: 'name' },
+    { id: '1', label: 'title', name: 'title' },
     { id: '2', label: 'desc', name: 'desc' },
     {
       id: '3',

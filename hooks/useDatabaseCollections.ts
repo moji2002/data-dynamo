@@ -9,14 +9,16 @@ const useDatabaseCollection = () => {
   const queryClient = useQueryClient()
   const router = useRouter()
 
+  // console.log(router.query.id)
+
   const queryAllCollections = useQuery({
     enabled: !router.query.id,
-    queryKey: ['collections'],
+    queryKey: ['collections', router.query.id],
     queryFn: () => api<{ collections: DatabaseCollectionItem[] }>(URI),
   })
 
   const queryCollectionById = useQuery({
-    queryKey: ['collections'],
+    queryKey: ['single-collection', router.query.id],
     enabled: !!router.query.id,
     queryFn: () =>
       api<{ collections: DatabaseCollectionItem }>(URI, {

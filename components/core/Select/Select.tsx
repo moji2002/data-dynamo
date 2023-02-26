@@ -2,7 +2,7 @@ import { SelectInputItem } from 'types/components'
 import { ChangeEventHandler, FC } from 'react'
 
 type Props = {
-  data?: SelectInputItem[]
+  list?: SelectInputItem[]
   value?: string
   onChange?: ChangeEventHandler<HTMLSelectElement>
   className?: string
@@ -12,7 +12,7 @@ type Props = {
 }
 
 const Select: FC<Props> = ({
-  data = [],
+  list: data = [],
   value,
   onChange,
   className = '',

@@ -1,3 +1,4 @@
+import { ChangeEventHandler } from 'react'
 import { SelectInputItem } from './components'
 
 export enum InputType {
@@ -17,8 +18,10 @@ type CommonInputProps = {
 
 type SelectInputProps = {
   type: InputType.select
-  defaultValue?: string | number | boolean
+  defaultValue?: string
   list: SelectInputItem[]
+  onChange?: ChangeEventHandler<HTMLSelectElement>
+  value?: string
 }
 type RangeInputProps = {
   type: InputType.range
@@ -56,5 +59,5 @@ export type Method = {
   name: string
   label?: string
   desc?: string
-  arguments?: any[]
+  arguments?: DynamicInputProps[]
 }
