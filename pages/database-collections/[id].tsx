@@ -11,74 +11,54 @@ import { useRouter } from 'next/router'
 import { TableColumn } from '@components/core/Table/types'
 import { DatabaseCollectionItem } from 'types/types'
 import { ActionButton } from 'types/components'
-import useCollectionFields from '@hooks/useCollectionFields'
+import useCollectionFields, {
+  CollectionField,
+} from '@hooks/useCollectionFields'
 import methods from 'constants/methods'
 
 const EditCollections = () => {
   const [isModalVisible, setModalVisible] = useState(false)
+  const router = useRouter()
   const closeModal = () => setModalVisible(false)
 
-  const [selectedMethodName, setSelectedMethodName] = useState('')
+  const [formValues, setFormValues] = useState<{
+    [key: string]: number | string | boolean
+  }>({})
 
-  console.log({ selectedMethodName })
+  // console.log(formValues);
 
-  // const router = useRouter()
+  const handleSetValue = (key: string, value: number | string | boolean) => {
+    setFormValues((prev) => ({ ...prev, [key]: value }))
+  }
 
-  // console.log(props);
+  const id = typeof router.query.id === 'string' ? router.query.id : undefined
 
   const { collection } = useDatabaseCollection()
+  const { deleteField, postField } = useCollectionFields()
   // useCollectionFields()
 
   const submitCollectionField: FormEventHandler<HTMLFormElement> = async (
     e
   ) => {
     e.preventDefault()
-    setSelectedMethodName('')
+    if (!id) return
 
-    // postDatabaseCollections(new FormData(e.currentTarget))
+    const { methodName,title, ...rest } = formValues
+
+    const payload: CollectionField = {
+      title:title+'',
+      methodName: methodName + '',
+      arguments: JSON.stringify(rest),
+      collectionId: +id,
+    }
+
+    postField(payload)
     setModalVisible(false)
-
-    // const result = await postCollection(new FormData(e.currentTarget))
-    // if (result.status === 201) {
-    //   setCollectionModalVisible(false)
-    // }
+    setFormValues({})
   }
 
-  // console.log({collection});
-
-  // const collectionFieldsColumns: TableColumn<DatabaseCollectionItem>[] = [
-  //   { id: '1', label: 'name', name: 'name' },
-  //   { id: '2', label: 'desc', name: 'desc' },
-  //   {
-  //     id: '3',
-  //     label: 'delete',
-  //     render: (row) => (
-  //       <button
-  //         // onClick={(e) => deleteDatabaseCollections(row.id)}
-  //         className="btn"
-  //       >
-  //         delete
-  //       </button>
-  //     ),
-  //     name: 'delete',
-  //   },
-  //   {
-  //     id: '4',
-  //     label: 'edit',
-  //     render: (row) => (
-  //       <button
-  //         // onClick={(e) => router.push(`database-collections/${row.id}`)}
-  //         className="btn btn-primary"
-  //       >
-  //         edit
-  //       </button>
-  //     ),
-  //     name: 'delete',
-  //   },
-  // ]
-
   const collectionFieldsModalInputs: DynamicInputProps[] = useMemo(() => {
-    const method = methods.find((m) => m.name === selectedMethodName)
+    const method = methods.find((m) => m.name === formValues['methodName'])
     const list = methods.map((m) => ({
       label: m.label || m.name,
       value: m.name,
@@ -91,32 +71,15 @@ const EditCollections = () => {
         name: 'methodName',
         label: 'Field type',
         list: list,
-        onChange: (e) => setSelectedMethodName(e.target.value),
-        value: selectedMethodName,
       },
       ...(method?.arguments ? method.arguments : []),
     ]
-  }, [selectedMethodName])
-
-  // const collectionFieldsModalInputs: DynamicInputProps[] = [
-  //   { type: InputType.text, name: 'name', label: 'Field Name' },
-
-  //   {
-  //     type: InputType.select,
-  //     name: 'type',
-  //     label: 'Field type',
-  //     list: methods.map((m) => ({ label: m.label || m.name, value: m.name })),
-  //     onChange: (e) => setSelectedMethodName(e.target.value),
-  //     value: selectedMethodName,
-  //   },
-  //   { type: InputType.number, name: 'hh' },
-  // ]
+  }, [formValues['methodName']])
 
   const collectionFieldsModalActionButtons: ActionButton[] = [
     {
       label: 'save',
       className: 'btn-success',
-      // isLoading: collectionPostMutation.isLoading,
       type: 'submit',
     },
     {
@@ -141,7 +104,11 @@ const EditCollections = () => {
         title="Add new field to collection"
       >
         <form onSubmit={submitCollectionField}>
-          <ModalContent elements={collectionFieldsModalInputs} />
+          <ModalContent
+            elements={collectionFieldsModalInputs}
+            values={formValues}
+            handleSetValue={handleSetValue}
+          />
           <ModalAction actionButtons={collectionFieldsModalActionButtons} />
         </form>
       </Modal>

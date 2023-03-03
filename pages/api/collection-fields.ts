@@ -1,22 +1,26 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { DatabaseCollectionItem } from 'types/types'
-import formParser from 'libs/formParser'
 import db from '@libs/db'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-if(req.method === 'get'){
- const result =  db.collection.findMany()
-}
+  console.log(req.body);
+  
+  if (req.method === 'POST') {
+    const result =await db.field.create({
+      data: {
+        methodName: req.body.methodName,
+        arguments: req.body.arguments,
+        title: req.body.title,
+        collection: {
+          connect: { id: req.body.collectionId },
+        },
+      },
+    })
+   return  res.status(200).json({ result })
+  }
 
+  res.status(500).json({ error:'something went wrong' })
 
-  res.status(200).json({})
-}
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
 }

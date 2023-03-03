@@ -1,12 +1,15 @@
-import { FC, ReactNode } from 'react'
+import { PropsWithChildren, ReactNode } from 'react'
 import { TableColumn } from './types'
 
-type Props = {
+interface Props<T> {
   data: any[]
-  columns: TableColumn[]
+  columns: TableColumn<T>[]
 }
 
-const Table: FC<Props> = ({ data, columns }) => {
+const Table: <T>(p: PropsWithChildren<Props<T>>) => ReactNode = ({
+  data,
+  columns,
+}) => {
   if (!data?.length) return null
 
   return (
@@ -14,12 +17,10 @@ const Table: FC<Props> = ({ data, columns }) => {
       <table className="table w-full">
         <thead>
           <tr>
-            {[
-              columns.map((col, index) => {
-                const HeadTag = index === 0 ? 'th' : 'td'
-                return <HeadTag key={col.id}>{col.label || col.name}</HeadTag>
-              }),
-            ]}
+            {columns.map((col, index) => {
+              const HeadTag = index === 0 ? 'th' : 'td'
+              return <HeadTag key={col.id}>{col.label || col.name}</HeadTag>
+            })}
           </tr>
         </thead>
         <tbody>
@@ -29,7 +30,6 @@ const Table: FC<Props> = ({ data, columns }) => {
                 {columns.map((col, index) => {
                   const HeadTag = index === 0 ? 'th' : 'td'
                   const render = !!col.render ? col.render(row) : row[col.name]!
-
                   return <HeadTag key={col?.id}>{render}</HeadTag>
                 })}
               </tr>

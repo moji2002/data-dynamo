@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import formParser from 'libs/formParser'
 import db from '@libs/db'
 
 export default async function handler(
@@ -9,6 +8,7 @@ export default async function handler(
   if (req.method === 'GET' && typeof req.query.id === 'string') {
     const result = await db.collection.findUnique({
       where: { id: +req.query.id },
+      include: { Fields: true,_count:true, },
     })
 
     return res.status(200).json({ collection: result })
@@ -20,10 +20,8 @@ export default async function handler(
   }
 
   if (req.method === 'POST') {
-    const parsed = await formParser(req)
-
-    const name = parsed.fields.name
-    const desc = parsed.fields.desc
+    const name = req.body.name
+    const desc = req.body.desc
 
     if (typeof name !== 'string' || typeof desc !== 'string') {
       return res.status(400).json({})
@@ -31,7 +29,7 @@ export default async function handler(
 
     const result = await db.collection.create({
       data: {
-        name: name,
+        title: name,
         desc: desc,
       },
     })
@@ -51,10 +49,4 @@ export default async function handler(
   }
 
   res.status(500).json({ collections: [] })
-}
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
 }

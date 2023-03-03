@@ -20,9 +20,8 @@ type SelectInputProps = {
   type: InputType.select
   defaultValue?: string
   list: SelectInputItem[]
-  onChange?: ChangeEventHandler<HTMLSelectElement>
-  value?: string
 }
+
 type RangeInputProps = {
   type: InputType.range
   defaultValue?: number
@@ -30,6 +29,7 @@ type RangeInputProps = {
   max?: number
   step?: number
 }
+
 type NumberInputProps = {
   type: InputType.number
   defaultValue?: number
@@ -37,13 +37,16 @@ type NumberInputProps = {
   max?: number
   step?: number
 }
+
 type TextInputProps = {
   type: InputType.text
   defaultValue?: string
 }
+
 type ToggleInputProps = {
   type: InputType.toggle
   defaultValue?: boolean
+  checked?: boolean
 }
 
 export type DynamicInputProps = CommonInputProps &

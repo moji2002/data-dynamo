@@ -1,11 +1,15 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import api from 'libs/api'
-import { InputType, Method } from 'types/method'
 import { useRouter } from 'next/router'
 
-interface CollectionField extends Method {
-  collectionId: string
-  id: string
+export interface CollectionField {
+  id?: number
+  title: string
+  methodName: string
+  arguments?: string
+  collectionId: number
+  createdAt?: string
+  updatedAt?: string
 }
 
 const URI = 'collection-fields'
@@ -13,66 +17,36 @@ const URI = 'collection-fields'
 const useCollectionFields = () => {
   const queryClient = useQueryClient()
   const router = useRouter()
-
-  const query = useQuery({
-    queryKey: ['fields'],
-    queryFn: () =>
-      api<{ fields: CollectionField[] }>(URI, {
-        params: { id: router.query.id },
-      }),
-  })
-
-
-  const invalidateQuery = () => {
-    queryClient.invalidateQueries(['fields', 'collections'])
-  }
+  const id = typeof router.query.id === 'string' ? router.query.id : undefined
 
   const postMutation = useMutation({
-    mutationFn: (data: CollectionField) =>
-      api.post<CollectionField>('fields', data),
+    mutationFn: (data: CollectionField) => api.post<CollectionField>(URI, data),
 
     onSuccess() {
-      invalidateQuery()
+      // invalidateQuery()
       // fetchData()
     },
   })
 
   const deleteMutation = useMutation({
-    mutationFn: (id: number) => api.delete<number>('fields/' + id),
+    mutationFn: (id: number) => api.delete<number>(URI + id),
     onSuccess() {
-      invalidateQuery()
+      // invalidateQuery()
       // fetchData()
     },
   })
 
-
-
-  // const newFiled: CollectionField = {
-  //   collectionId: id || '',
-  //   name: 'filed name for collection ' + id,
-  //   label: 'hello',
-  //   arguments: [
-  //     {
-  //       name: 'hello',
-  //       type: ElementType.numberInput,
-  //       default: 44,
-  //       label: 'test label',
-  //     },
-  //   ],
-  // }
-
-  const postNewField = async (newFiled: CollectionField) => {
+  const postField = async (newFiled: CollectionField) => {
     const result = postMutation.mutate(newFiled)
   }
 
-  const deleteItem = (id: number) => {
+  const deleteField = (id: number) => {
     deleteMutation.mutate(id)
   }
 
   return {
-    postNewField,
-    deleteItem,
-    data: query.data?.data,
+    postField,
+    deleteField,
   }
 }
 

@@ -3,17 +3,17 @@ import { ChangeEventHandler, FC } from 'react'
 type Props = {
   label?: string
   onToggle?: ChangeEventHandler<HTMLInputElement>
-  value?: string
   name: string
   defaultChecked?: boolean
+  checked?: boolean
 }
 
 const Toggle: FC<Props> = ({
   label,
   onToggle,
-  value,
   name,
   defaultChecked,
+  checked,
 }) => {
   return (
     <div className="form-control w-1/2">
@@ -23,7 +23,7 @@ const Toggle: FC<Props> = ({
           name={name}
           type="checkbox"
           defaultChecked={defaultChecked}
-          value={value}
+          checked={checked}
           onChange={onToggle}
           className="toggle toggle-primary"
         />

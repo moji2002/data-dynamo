@@ -16,6 +16,15 @@ const DatabaseCollectionsPage = () => {
   const [isModalVisible, setModalVisible] = useState(false)
   const router = useRouter()
 
+  const [formValues, setFormValues] = useState<{
+    [key: string]: number | string | boolean
+  }>({})
+
+
+  const handleSetValue = (key: string, value: number | string | boolean) => {
+    setFormValues((prev) => ({ ...prev, [key]: value }))
+  }
+
   const {
     allCollections: databaseCollections,
     deleteDatabaseCollections,
@@ -29,13 +38,10 @@ const DatabaseCollectionsPage = () => {
   ) => {
     e.preventDefault()
 
-    postDatabaseCollections(new FormData(e.currentTarget))
+    postDatabaseCollections(formValues)
+    setFormValues({})
     setModalVisible(false)
 
-    // const result = await postCollection(new FormData(e.currentTarget))
-    // if (result.status === 201) {
-    //   setCollectionModalVisible(false)
-    // }
   }
 
   const databaseCollectionColumns: TableColumn<DatabaseCollectionItem>[] = [
@@ -111,7 +117,11 @@ const DatabaseCollectionsPage = () => {
         title="Add new database collection"
       >
         <form onSubmit={submitNewDatabaseCollection}>
-          <ModalContent elements={databaseCollectionModalInputs} />
+          <ModalContent
+            elements={databaseCollectionModalInputs}
+            handleSetValue={handleSetValue}
+            values={formValues}
+          />
           <ModalAction actionButtons={databaseCollectionModalActionButtons} />
         </form>
       </Modal>

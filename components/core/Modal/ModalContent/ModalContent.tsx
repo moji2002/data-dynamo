@@ -7,67 +7,90 @@ import { DynamicInputProps, InputType } from 'types/method'
 
 type Props = {
   elements: DynamicInputProps[]
-  setValues?: (e: any) => any
-  values?: any
+  values: { [key: string]: number | string | boolean }
+  handleSetValue: (key: string, value: number | string | boolean) => any
 }
 
-const ModalContent: FC<Props> = ({ elements, setValues, values }) => {
+const ModalContent: FC<Props> = ({ elements, values, handleSetValue }) => {
+  if (!values || !elements || !handleSetValue)
+    new Error('ModalContent: props not provided')
+
   return (
     <>
-      {elements.map((element) => (
-        <div key={element.name} className="mb-4 ">
-          {element.type === InputType.text && (
-            <TextInput
-              key={element.name}
-              defaultValue={element.defaultValue}
-              name={element.name}
-              placeholder={element.placeholder}
-              label={element.label||element.name}
-            />
-          )}
-          {element.type === InputType.number && (
-            <TextInput
-              key={element.name}
-              defaultValue={element.defaultValue}
-              name={element.name}
-              placeholder={element.placeholder}
-              label={element.label||element.name}
-              type='number'
-            />
-          )}
-          {element.type === InputType.range && (
-            <Range
-              key={element.name}
-              defaultValue={element.defaultValue}
-              name={element.name}
-              label={element.label || element.name}
-              max={element.max}
-              min={element.min}
-              step={element.step}
-            />
-          )}
-          {element.type === InputType.select && (
-            <Select
-              key={element.name}
-              name={element.name}
-              label={element.label || element.name}
-              list={element.list}
-              onChange={element.onChange}
-              value={element.value}
-            />
-          )}
-          {element.type === InputType.toggle && (
-            <Toggle
-              key={element.name}
-              name={element.name}
-              label={element.label || element.name}
-              defaultChecked={element.defaultValue}
-
-            />
-          )}
-          {element.desc && <div className="p-2 text-xs ">{element.desc}</div>}
-        </div>
-      ))}
+      {elements.map((element) => {
+        const value = values[element?.name]
+        return (
+          <div key={element.name} className="mb-4">
+            {element.type === InputType.text && (
+              <TextInput
+                key={element.name}
+                defaultValue={element.defaultValue}
+                name={element.name}
+                placeholder={element.placeholder}
+                label={element.label || element.name}
+                value={typeof value === 'string' ? value : ''}
+                onChange={(e) => handleSetValue(element.name, e.target.value)}
+              />
+            )}
+            {element.type === InputType.number && (
+              <TextInput
+                key={element.name}
+                defaultValue={element.defaultValue}
+                name={element.name}
+                placeholder={element.placeholder}
+                label={element.label || element.name}
+                type="number"
+                value={
+                  typeof value === 'string'
+                    ? value
+                    : element.defaultValue + '' || ''
+                }
+                onChange={(e) => handleSetValue(element.name, e.target.value)}
+              />
+            )}
+            {element.type === InputType.range && (
+              <Range
+                key={element.name}
+                defaultValue={element.defaultValue}
+                name={element.name}
+                label={element.label || element.name}
+                max={element.max}
+                min={element.min}
+                step={element.step}
+                value={
+                  typeof value === 'number' ? value : element.defaultValue || 0
+                }
+                onChange={(e) => handleSetValue(element.name, e.target.value)}
+              />
+            )}
+            {element.type === InputType.select && (
+              <Select
+                key={element.name}
+                name={element.name}
+                label={element.label || element.name}
+                list={element.list}
+                value={typeof value === 'string' ? value : ''}
+                onChange={(e) => handleSetValue(element.name, e.target.value)}
+              />
+            )}
+            {element.type === InputType.toggle && (
+              <Toggle
+                key={element.name}
+                name={element.name}
+                label={element.label || element.name}
+                defaultChecked={element.defaultValue}
+                checked={
+                  typeof value === 'boolean'
+                    ? value
+                    : element.defaultValue || false
+                }
+                onToggle={(e) => handleSetValue(element.name, e.target.value)}
+              />
+            )}
+            {element.desc && <div className="p-2 text-xs ">{element.desc}</div>}
+          </div>
+        )
+      })}
     </>
   )
 }

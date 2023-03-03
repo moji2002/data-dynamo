@@ -12,7 +12,7 @@ type Props = {
 }
 
 const Select: FC<Props> = ({
-  list: data = [],
+  list = [],
   value,
   onChange,
   className = '',
@@ -32,7 +32,7 @@ const Select: FC<Props> = ({
         defaultValue={defaultValue}
       >
         <option value="">Please Select</option>
-        {data.map((item) => (
+        {list.map((item) => (
           <option
             disabled={item.value === value}
             key={item.value}
