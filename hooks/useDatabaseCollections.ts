@@ -1,30 +1,21 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import api from 'libs/api'
-import { DatabaseCollectionItem } from '../types/types'
+import { DatabaseCollectionItem } from '../types/models'
 import { useRouter } from 'next/router'
 
-const URI = 'database-collections'
+const URI = '__database-collections'
 
 const useDatabaseCollection = () => {
   const queryClient = useQueryClient()
   const router = useRouter()
 
-  // console.log(router.query.id)
-
   const queryAllCollections = useQuery({
     enabled: !router.query.id,
     queryKey: ['collections', router.query.id],
-    queryFn: () => api<{ collections: DatabaseCollectionItem[] }>(URI),
+    queryFn: () => api<{ Fields: DatabaseCollectionItem[] }>(URI),
   })
 
-  const queryCollectionById = useQuery({
-    queryKey: ['single-collection', router.query.id],
-    enabled: !!router.query.id,
-    queryFn: () =>
-      api<{ collections: DatabaseCollectionItem }>(URI, {
-        params: { id: router.query.id },
-      }),
-  })
+
 
   const invalidateQuery = () => {
     queryClient.invalidateQueries(['collections'])
@@ -52,7 +43,6 @@ const useDatabaseCollection = () => {
   }
 
   return {
-    collection: queryCollectionById.data?.data,
     allCollections: queryAllCollections.data?.data.collections,
     deleteDatabaseCollections,
     postDatabaseCollections,

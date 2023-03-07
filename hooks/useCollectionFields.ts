@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import api from 'libs/api'
 import { useRouter } from 'next/router'
 
@@ -12,27 +12,48 @@ export interface CollectionField {
   updatedAt?: string
 }
 
-const URI = 'collection-fields'
+type QueryResponseModel = {
+  collection: {
+    Fields: CollectionField[]
+    name: string
+    desc: string
+  }
+}
+
+const URI = '__collection-fields'
+
+const COLLECTION_URI = '__database-collections'
 
 const useCollectionFields = () => {
   const queryClient = useQueryClient()
   const router = useRouter()
   const id = typeof router.query.id === 'string' ? router.query.id : undefined
 
+  const queryCollectionById = useQuery({
+    queryKey: ['single-collection', router.query.id],
+    enabled: !!router.query.id,
+    queryFn: () =>
+      api<QueryResponseModel>(COLLECTION_URI, {
+        params: { id },
+      }),
+  })
+
+  const invalidateQuery = () => {
+    queryClient.invalidateQueries(['single-collection', router.query.id])
+  }
+
   const postMutation = useMutation({
     mutationFn: (data: CollectionField) => api.post<CollectionField>(URI, data),
 
     onSuccess() {
-      // invalidateQuery()
-      // fetchData()
+      invalidateQuery()
     },
   })
 
   const deleteMutation = useMutation({
-    mutationFn: (id: number) => api.delete<number>(URI + id),
+    mutationFn: (id: number) => api.delete<number>(URI, { params: { id } }),
     onSuccess() {
-      // invalidateQuery()
-      // fetchData()
+      invalidateQuery()
     },
   })
 
@@ -45,6 +66,7 @@ const useCollectionFields = () => {
   }
 
   return {
+    data: queryCollectionById.data?.data,
     postField,
     deleteField,
   }

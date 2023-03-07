@@ -37,3 +37,11 @@ model Field {
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
 }
+
+model Record {
+  id             String   @id
+  json           String // stringify json
+  collectionName String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}

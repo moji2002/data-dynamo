@@ -8,15 +8,15 @@ export default async function handler(
   if (req.method === 'GET' && typeof req.query.id === 'string') {
     const result = await db.collection.findUnique({
       where: { id: +req.query.id },
-      include: { Fields: true,_count:true, },
+      include: { Fields: true },
     })
 
-    return res.status(200).json({ collection: result })
+    return res.status(200).json({ message: 'SUCCESS', collection: result })
   }
 
   if (req.method === 'GET') {
     const result = await db.collection.findMany()
-    return res.status(200).json({ collections: result })
+    return res.status(200).json({ collections: result, message: 'SUCCESS' })
   }
 
   if (req.method === 'POST') {
@@ -24,7 +24,7 @@ export default async function handler(
     const desc = req.body.desc
 
     if (typeof name !== 'string' || typeof desc !== 'string') {
-      return res.status(400).json({})
+      return res.status(400).json({ error: 'INVALID' })
     }
 
     const result = await db.collection.create({
@@ -33,7 +33,7 @@ export default async function handler(
         desc: desc,
       },
     })
-    return res.status(200).json({ collection: result })
+    return res.status(200).json({ collection: result, message: 'SUCCESS' })
   }
 
   if (req.method === 'DELETE') {
@@ -45,8 +45,8 @@ export default async function handler(
 
     await db.collection.delete({ where: { id: +id } })
 
-    return res.status(200).json({ success: true })
+    return res.status(200).json({ message: 'SUCCESS' })
   }
 
-  res.status(500).json({ collections: [] })
+  res.status(500).json({ error: 'SERVER_ERROR' })
 }

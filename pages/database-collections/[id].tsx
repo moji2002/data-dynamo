@@ -9,7 +9,7 @@ import ModalContent from '@components/core/Modal/ModalContent'
 import { DynamicInputProps, InputType } from 'types/method'
 import { useRouter } from 'next/router'
 import { TableColumn } from '@components/core/Table/types'
-import { DatabaseCollectionItem } from 'types/types'
+import { DatabaseCollectionItem, Field } from 'types/models'
 import { ActionButton } from 'types/components'
 import useCollectionFields, {
   CollectionField,
@@ -33,8 +33,8 @@ const EditCollections = () => {
 
   const id = typeof router.query.id === 'string' ? router.query.id : undefined
 
-  const { collection } = useDatabaseCollection()
-  const { deleteField, postField } = useCollectionFields()
+  // const { collection } = useDatabaseCollection()
+  const { deleteField, postField, data } = useCollectionFields()
   // useCollectionFields()
 
   const submitCollectionField: FormEventHandler<HTMLFormElement> = async (
@@ -43,10 +43,10 @@ const EditCollections = () => {
     e.preventDefault()
     if (!id) return
 
-    const { methodName,title, ...rest } = formValues
+    const { methodName, title, ...rest } = formValues
 
     const payload: CollectionField = {
-      title:title+'',
+      title: title + '',
       methodName: methodName + '',
       arguments: JSON.stringify(rest),
       collectionId: +id,
@@ -56,6 +56,8 @@ const EditCollections = () => {
     setModalVisible(false)
     setFormValues({})
   }
+
+  const handleBuildTable = () => {}
 
   const collectionFieldsModalInputs: DynamicInputProps[] = useMemo(() => {
     const method = methods.find((m) => m.name === formValues['methodName'])
@@ -92,6 +94,34 @@ const EditCollections = () => {
     },
   ]
 
+  const fieldColumns: TableColumn<Field>[] = [
+    { id: '1', label: 'title', name: 'title' },
+    { id: '2', label: 'method name', name: 'methodName' },
+    {
+      id: '3',
+      label: 'delete',
+      render: (row) => (
+        <button onClick={(e) => deleteField(+row.id)} className="btn">
+          delete
+        </button>
+      ),
+      name: 'delete',
+    },
+    // {
+    //   id: '4',
+    //   label: 'edit',
+    //   render: (row) => (
+    //     <button
+    //       onClick={(e) => router.push(`database-collections/${row.id}`)}
+    //       className="btn btn-primary"
+    //     >
+    //       edit
+    //     </button>
+    //   ),
+    //   name: 'delete',
+    // },
+  ]
+
   return (
     <>
       <Head>
@@ -116,7 +146,7 @@ const EditCollections = () => {
         <Card>
           <>
             <div className="card-actions items-center  justify-between">
-              <h2 className="card-title">Collections</h2>
+              <h2 className="card-title">{data?.collection.title} 's fields</h2>
               <div className="btn-group">
                 <button
                   onClick={() => setModalVisible(true)}
@@ -124,16 +154,21 @@ const EditCollections = () => {
                 >
                   add field
                 </button>
-                {/* <button className="btn btn-outline btn-error">delete</button> */}
+                <button
+                  className="btn btn-outline btn-primary "
+                  onClick={handleBuildTable}
+                >
+                  build table
+                </button>
               </div>
             </div>
             {/* <p className="mb-4 flex-grow-0">
               If a dog chews shoes whose shoes does he choose?
             </p> */}
-            {/* <Table
-              columns={databaseCollectionColumns}
-              data={databaseCollections || []}
-            /> */}
+            <Table
+              columns={fieldColumns}
+              data={data?.collection.Fields || []}
+            />
           </>
         </Card>
       </div>

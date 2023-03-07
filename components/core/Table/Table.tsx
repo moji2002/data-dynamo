@@ -1,15 +1,12 @@
-import { PropsWithChildren, ReactNode } from 'react'
+import { FC} from 'react'
 import { TableColumn } from './types'
 
-interface Props<T> {
+interface Props {
   data: any[]
-  columns: TableColumn<T>[]
+  columns: TableColumn<any>[]
 }
 
-const Table: <T>(p: PropsWithChildren<Props<T>>) => ReactNode = ({
-  data,
-  columns,
-}) => {
+const Table: FC<Props> = ({ data, columns }) => {
   if (!data?.length) return null
 
   return (
