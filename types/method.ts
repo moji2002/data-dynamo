@@ -1,4 +1,3 @@
-import { ChangeEventHandler } from 'react'
 import { SelectInputItem } from './components'
 
 export enum InputType {

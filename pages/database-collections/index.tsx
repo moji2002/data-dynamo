@@ -9,7 +9,7 @@ import ModalContent from '@components/core/Modal/ModalContent'
 import { DynamicInputProps, InputType } from 'types/method'
 import { useRouter } from 'next/router'
 import { TableColumn } from '@components/core/Table/types'
-import { DatabaseCollectionItem } from 'types/types'
+import { DatabaseCollectionItem } from 'types/models'
 import { ActionButton } from 'types/components'
 
 const DatabaseCollectionsPage = () => {
@@ -108,7 +108,7 @@ const DatabaseCollectionsPage = () => {
   return (
     <>
       <Head>
-        <title>Cool JSON Placeholder</title>
+        <title>Mocker - JSON Placeholder</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Modal // add collection modal

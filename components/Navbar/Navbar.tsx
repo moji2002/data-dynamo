@@ -34,7 +34,7 @@ const Navbar = ({ setDrawerOpen }: { setDrawerOpen: (e: boolean) => void }) => {
       </div>
       <div className="flex-1">
         <a className="btn btn-ghost text-xl normal-case">
-          Cool JSON Placeholder
+          Mocker - JSON Placeholder
         </a>
       </div>
       <div className="pr-4">

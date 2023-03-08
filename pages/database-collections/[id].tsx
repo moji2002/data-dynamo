@@ -3,39 +3,51 @@ import Head from 'next/head'
 import { FormEventHandler, useMemo, useState } from 'react'
 import Table from '@components/core/Table'
 import ModalAction from '@components/core/Modal/ModalAction'
-import useDatabaseCollection from '@hooks/useDatabaseCollections'
 import Modal from '@components/core/Modal/ModalContainer/ModalContainer'
 import ModalContent from '@components/core/Modal/ModalContent'
 import { DynamicInputProps, InputType } from 'types/method'
 import { useRouter } from 'next/router'
 import { TableColumn } from '@components/core/Table/types'
-import { DatabaseCollectionItem, Field } from 'types/models'
+import { Field } from 'types/models'
 import { ActionButton } from 'types/components'
 import useCollectionFields, {
   CollectionField,
 } from '@hooks/useCollectionFields'
 import methods from 'constants/methods'
+import useBuildCollection from '@hooks/useBuildCollection'
 
 const EditCollections = () => {
   const [isModalVisible, setModalVisible] = useState(false)
+  const [isBuildModalVisible, setBuildModalVisible] = useState(false)
   const router = useRouter()
   const closeModal = () => setModalVisible(false)
 
-  const [formValues, setFormValues] = useState<{
+  const [fieldFormValues, setFieldFormValues] = useState<{
     [key: string]: number | string | boolean
   }>({})
 
-  // console.log(formValues);
+  const [buildValues, setBuildValues] = useState<{
+    [key: string]: number | string | boolean
+  }>({})
 
-  const handleSetValue = (key: string, value: number | string | boolean) => {
-    setFormValues((prev) => ({ ...prev, [key]: value }))
+  const handleSetFieldFormValue = (
+    key: string,
+    value: number | string | boolean
+  ) => {
+    setFieldFormValues((prev) => ({ ...prev, [key]: value }))
+  }
+
+  const handleSetBuildFormValue = (
+    key: string,
+    value: number | string | boolean
+  ) => {
+    setBuildValues((prev) => ({ ...prev, [key]: value }))
   }
 
   const id = typeof router.query.id === 'string' ? router.query.id : undefined
 
-  // const { collection } = useDatabaseCollection()
   const { deleteField, postField, data } = useCollectionFields()
-  // useCollectionFields()
+  const { buildDatabaseCollections } = useBuildCollection()
 
   const submitCollectionField: FormEventHandler<HTMLFormElement> = async (
     e
@@ -43,7 +55,7 @@ const EditCollections = () => {
     e.preventDefault()
     if (!id) return
 
-    const { methodName, title, ...rest } = formValues
+    const { methodName, title, ...rest } = fieldFormValues
 
     const payload: CollectionField = {
       title: title + '',
@@ -54,13 +66,28 @@ const EditCollections = () => {
 
     postField(payload)
     setModalVisible(false)
-    setFormValues({})
+    setFieldFormValues({})
   }
 
-  const handleBuildTable = () => {}
+  const handleBuildCollections: FormEventHandler<HTMLFormElement> = async (
+    e
+  ) => {
+    e.preventDefault()
+    const quantity =
+      typeof buildValues.quantity === 'string'
+        ? +buildValues.quantity
+        : undefined
+        
+    buildDatabaseCollections({
+      collectionName: data?.collection.title,
+      quantity: quantity,
+    })
+
+    setBuildModalVisible(false)
+  }
 
   const collectionFieldsModalInputs: DynamicInputProps[] = useMemo(() => {
-    const method = methods.find((m) => m.name === formValues['methodName'])
+    const method = methods.find((m) => m.name === fieldFormValues['methodName'])
     const list = methods.map((m) => ({
       label: m.label || m.name,
       value: m.name,
@@ -76,7 +103,7 @@ const EditCollections = () => {
       },
       ...(method?.arguments ? method.arguments : []),
     ]
-  }, [formValues['methodName']])
+  }, [fieldFormValues['methodName']])
 
   const collectionFieldsModalActionButtons: ActionButton[] = [
     {
@@ -90,6 +117,21 @@ const EditCollections = () => {
       onClick: (e) => {
         e.preventDefault()
         closeModal()
+      },
+    },
+  ]
+  const buildModalActionButtons: ActionButton[] = [
+    {
+      label: 'ok',
+      className: 'btn-success',
+      type: 'submit',
+    },
+    {
+      label: 'cancel',
+      className: 'btn-outline btn-error',
+      onClick: (e) => {
+        e.preventDefault()
+        setBuildModalVisible(false)
       },
     },
   ]
@@ -107,25 +149,20 @@ const EditCollections = () => {
       ),
       name: 'delete',
     },
-    // {
-    //   id: '4',
-    //   label: 'edit',
-    //   render: (row) => (
-    //     <button
-    //       onClick={(e) => router.push(`database-collections/${row.id}`)}
-    //       className="btn btn-primary"
-    //     >
-    //       edit
-    //     </button>
-    //   ),
-    //   name: 'delete',
-    // },
+  ]
+
+  const buildCollectionModalInputs: DynamicInputProps[] = [
+    {
+      type: InputType.number,
+      name: 'quantity',
+      label: 'How many records do you want to create?',
+    },
   ]
 
   return (
     <>
       <Head>
-        <title>Cool JSON Placeholder</title>
+      <title>Mocker - JSON Placeholder | {data?.collection.title} 's fields</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Modal // add collection modal
@@ -136,10 +173,24 @@ const EditCollections = () => {
         <form onSubmit={submitCollectionField}>
           <ModalContent
             elements={collectionFieldsModalInputs}
-            values={formValues}
-            handleSetValue={handleSetValue}
+            values={fieldFormValues}
+            handleSetValue={handleSetFieldFormValue}
           />
           <ModalAction actionButtons={collectionFieldsModalActionButtons} />
+        </form>
+      </Modal>
+      <Modal // build collection modal
+        isVisible={isBuildModalVisible}
+        setVisible={setBuildModalVisible}
+        title="build collection"
+      >
+        <form onSubmit={handleBuildCollections}>
+          <ModalContent
+            elements={buildCollectionModalInputs}
+            values={buildValues}
+            handleSetValue={handleSetBuildFormValue}
+          />
+          <ModalAction actionButtons={buildModalActionButtons} />
         </form>
       </Modal>
       <div className="grid grid-cols-1 gap-4 2xl:grid-cols-2">
@@ -156,7 +207,7 @@ const EditCollections = () => {
                 </button>
                 <button
                   className="btn btn-outline btn-primary "
-                  onClick={handleBuildTable}
+                  onClick={() => setBuildModalVisible(true)}
                 >
                   build table
                 </button>

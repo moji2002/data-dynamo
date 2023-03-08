@@ -11,7 +11,16 @@ export default async function handler(
   if (req.method === 'GET' && id) {
     const record = await db.record.findFirst({ where: { id, collectionName } })
     if (record) {
-      return res.status(200).json({ data: record })
+      return res
+        .status(200)
+        .json({
+          data: {
+            id: record.id,
+            ...JSON.parse(record.json),
+            createdAt: record.createdAt,
+            updatedAt: record.updatedAt,
+          },
+        })
     }
 
     return res.status(404).json({ error: 'NOT_FOUND' })
@@ -19,7 +28,16 @@ export default async function handler(
 
   if (req.method === 'GET') {
     const records = await db.record.findMany({ where: { collectionName } })
-    return res.status(200).json({ data: records, message: 'SUCCESS' })
+    const reshaped = records.map((r) => {
+      return {
+        id: r.id,
+        ...JSON.parse(r.json),
+        createdAt: r.createdAt,
+        updatedAt: r.updatedAt,
+      }
+    })
+
+    return res.status(200).json({ data: reshaped, message: 'SUCCESS' })
   }
 
   if (req.method === 'POST') {

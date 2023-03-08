@@ -30,15 +30,6 @@ const methods: Method[] = [
 
     arguments: [
       {
-        name: 'nationality',
-        desc: 'Optionally specify a nationality to limit first names to those most common of that nationality',
-        type: InputType.select,
-        list: [
-          { label: 'us', value: 'us' },
-          { label: 'it', value: 'it' },
-        ],
-      },
-      {
         name: 'gender',
         desc: 'Optionally specify a gender to limit first names to that gender',
         type: InputType.select,
@@ -154,7 +145,7 @@ const methods: Method[] = [
     desc: 'Return a random color.',
     arguments: [
       {
-        name: 'type',
+        name: 'format',
         desc: 'These are the kinds usable in HTML or CSS. The type can optionally be specified',
         type: InputType.select,
         list: [

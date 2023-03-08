@@ -1,51 +1,51 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import db from '@libs/db'
+import generateRecords from '@libs/generateRecords'
+import { nanoid } from 'nanoid'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === 'GET' && typeof req.query.id === 'string') {
-    const result = await db.collection.findUnique({
-      where: { id: +req.query.id },
-      include: { Fields: true,},
-    })
-
-    return res.status(200).json({ collection: result,message: 'SUCCESS' })
-  }
-
-  if (req.method === 'GET') {
-    const result = await db.collection.findMany()
-    return res.status(200).json({ collections: result,message: 'SUCCESS' })
-  }
+  // return res.status(200).json({ error: 'DEBUG' })
 
   if (req.method === 'POST') {
-    const name = req.body.name
-    const desc = req.body.desc
+    const collectionName = req.query.collectionName
+    const quantity =typeof req.query.quantity === 'string' ? +req.query.quantity : undefined
 
-    if (typeof name !== 'string' || typeof desc !== 'string') {
-      return res.status(400).json({error: 'INVALID'})
+    if (typeof collectionName !== 'string') {
+      return res.status(401).json({ error: 'INVALID' })
     }
 
-    const result = await db.collection.create({
-      data: {
-        title: name,
-        desc: desc,
+    await db.record.deleteMany({ where: { collectionName } })
+
+    const result = await db.collection.findFirst({
+      where: {
+        title: collectionName,
+      },
+
+      include: {
+        Fields: true,
       },
     })
-    return res.status(200).json({ collection: result,message: 'SUCCESS' })
-  }
 
-  if (req.method === 'DELETE') {
-    const id = req.query.id
-
-    if (typeof id !== 'string') {
-      return res.status(400).json({})
+    if (!result) {
+      return res.status(404).json({ error: 'NOT_FOUND' })
     }
 
-    await db.collection.delete({ where: { id: +id } })
+    const data = generateRecords(result?.Fields,quantity)
 
-    return res.status(200).json({ message: 'SUCCESS' })
+    const reshaped = data.map((d) => {
+      return {
+        json: JSON.stringify(d),
+        id: nanoid(),
+        collectionName,
+      }
+    })
+
+    reshaped.forEach(async (record) => await db.record.create({ data: record }))
+
+    return res.status(200).json({ message: 'SUCCESS', f: result })
   }
 
   res.status(500).json({ error: 'SERVER_ERROR' })
