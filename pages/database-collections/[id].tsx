@@ -27,7 +27,7 @@ const EditCollections = () => {
 
   const [buildValues, setBuildValues] = useState<{
     [key: string]: number | string | boolean
-  }>({})
+  }>({ quantity: 10 })
 
   const handleSetFieldFormValue = (
     key: string,
@@ -159,6 +159,7 @@ const EditCollections = () => {
       type: InputType.number,
       name: 'quantity',
       label: 'How many records do you want to create?',
+      placeholder: 'default 10',
     },
   ]
 
@@ -216,6 +217,13 @@ const EditCollections = () => {
                 >
                   build table
                 </button>
+                <a
+                  className="btn btn-outline btn-primary "
+                  href={'/api/' + collection?.name}
+                  target="_blank"
+                >
+                  test{' '}
+                </a>
               </div>
             </div>
             {/* <p className="mb-4 flex-grow-0">

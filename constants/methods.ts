@@ -299,27 +299,27 @@ const methods: Method[] = [
       },
     ],
   },
-  {
-    name: 'image',
-    desc: 'Return a random image uri',
-    arguments: [
-      {
-        name: 'width',
-        desc: 'set image width',
-        type: InputType.number,
-      },
-      {
-        name: 'height',
-        desc: 'set image height',
-        type: InputType.number,
-      },
-      {
-        name: 'search',
-        desc: 'Generate images from search terms.',
-        type: InputType.text,
-      },
-    ],
-  },
+  // {
+  //   name: 'image',
+  //   desc: 'Return a random image uri',
+  //   arguments: [
+  //     {
+  //       name: 'width',
+  //       desc: 'set image width',
+  //       type: InputType.number,
+  //     },
+  //     {
+  //       name: 'height',
+  //       desc: 'set image height',
+  //       type: InputType.number,
+  //     },
+  //     {
+  //       name: 'search',
+  //       desc: 'Generate images from search terms.',
+  //       type: InputType.text,
+  //     },
+  //   ],
+  // },
 ]
 
 export default methods
