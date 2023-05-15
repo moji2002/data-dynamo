@@ -9,7 +9,7 @@ import ModalContent from '@components/core/Modal/ModalContent'
 import { DynamicInputProps, InputType } from 'types/method'
 import { useRouter } from 'next/router'
 import { TableColumn } from '@components/core/Table/types'
-import { DatabaseCollectionItem } from 'types/models'
+import { DatabaseCollection } from 'types/models'
 import { ActionButton } from 'types/components'
 
 const DatabaseCollectionsPage = () => {
@@ -26,7 +26,7 @@ const DatabaseCollectionsPage = () => {
   }
 
   const {
-    allCollections: databaseCollections,
+    collections: databaseCollections,
     deleteDatabaseCollections,
     postDatabaseCollections,
   } = useDatabaseCollection()
@@ -44,8 +44,8 @@ const DatabaseCollectionsPage = () => {
 
   }
 
-  const databaseCollectionColumns: TableColumn<DatabaseCollectionItem>[] = [
-    { id: '1', label: 'title', name: 'title' },
+  const databaseCollectionColumns: TableColumn<DatabaseCollection>[] = [
+    { id: '1', label: 'title', name: 'name' },
     { id: '2', label: 'desc', name: 'desc' },
     {
       id: '3',
@@ -128,7 +128,7 @@ const DatabaseCollectionsPage = () => {
       <div className="grid grid-cols-1 gap-4 2xl:grid-cols-2">
         <Card>
           <>
-            <div className="card-actions items-center  justify-between">
+            <div className="card-actions items-center justify-between">
               <h2 className="card-title">Collections</h2>
               <div className="btn-group">
                 <button

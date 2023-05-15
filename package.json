@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "migrate:dev": "prisma migrate dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@prisma/client": "^4.10.1",
+    "@types/chance": "^1.1.3",
     "@types/formidable": "^2.0.5",
     "@types/node": "17.0.35",
     "@types/qs": "^6.9.7",

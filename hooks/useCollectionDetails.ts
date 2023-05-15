@@ -1,30 +1,18 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import api from 'libs/api'
 import { useRouter } from 'next/router'
-
-export interface CollectionField {
-  id?: number
-  title: string
-  methodName: string
-  arguments?: string
-  collectionId: number
-  createdAt?: string
-  updatedAt?: string
-}
-
-type QueryResponseModel = {
-  collection: {
-    Fields: CollectionField[]
-    name: string
-    desc: string
-  }
-}
+import { HttpResponse } from 'types/api'
+import {
+  DatabaseCollectionDetails,
+  FieldDetails,
+  FieldPayload,
+} from 'types/models'
 
 const URI = '__collection-fields'
 
 const COLLECTION_URI = '__database-collections'
 
-const useCollectionFields = () => {
+const useCollectionDetails = () => {
   const queryClient = useQueryClient()
   const router = useRouter()
   const id = typeof router.query.id === 'string' ? router.query.id : undefined
@@ -33,7 +21,7 @@ const useCollectionFields = () => {
     queryKey: ['single-collection', router.query.id],
     enabled: !!router.query.id,
     queryFn: () =>
-      api<QueryResponseModel>(COLLECTION_URI, {
+      api<HttpResponse<DatabaseCollectionDetails>>(COLLECTION_URI, {
         params: { id },
       }),
   })
@@ -43,7 +31,8 @@ const useCollectionFields = () => {
   }
 
   const postMutation = useMutation({
-    mutationFn: (data: CollectionField) => api.post<CollectionField>(URI, data),
+    mutationFn: (data: FieldPayload) =>
+      api.post<HttpResponse<FieldDetails>>(URI, data),
 
     onSuccess() {
       invalidateQuery()
@@ -57,7 +46,7 @@ const useCollectionFields = () => {
     },
   })
 
-  const postField = async (newFiled: CollectionField) => {
+  const postField = async (newFiled: FieldPayload) => {
     const result = postMutation.mutate(newFiled)
   }
 
@@ -66,10 +55,10 @@ const useCollectionFields = () => {
   }
 
   return {
-    data: queryCollectionById.data?.data,
+    collection: queryCollectionById.data?.data?.data,
     postField,
     deleteField,
   }
 }
 
-export default useCollectionFields
+export default useCollectionDetails

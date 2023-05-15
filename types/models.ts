@@ -1,13 +1,39 @@
-export type DatabaseCollectionItem = {
-  id: string
+export interface DatabaseCollection {
+  id: number
   name: string
   desc: string
 }
 
-export type Field = {
+export interface DatabaseCollectionPayload {
+  name: string
+  desc?: string
+}
+
+
+export interface FieldPayload {
   arguments: string
-  collectionId: string
-  id: string
+  collectionId: number
+  id?: number
   methodName: string
-  title: string
+  name: string
+}
+
+export interface FieldDetails {
+  id?: number
+  name: string
+  methodName: string
+  arguments: string
+  collectionId: number
+  createdAt: string
+  updatedAt: string
+}
+
+export interface DatabaseCollectionDetails {
+  id: number
+  name: string
+  desc: string
+  createdAt: string
+  updatedAt: string
+
+  Fields: FieldDetails[]
 }

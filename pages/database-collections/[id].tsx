@@ -8,13 +8,12 @@ import ModalContent from '@components/core/Modal/ModalContent'
 import { DynamicInputProps, InputType } from 'types/method'
 import { useRouter } from 'next/router'
 import { TableColumn } from '@components/core/Table/types'
-import { Field } from 'types/models'
+import { FieldPayload } from 'types/models'
 import { ActionButton } from 'types/components'
-import useCollectionFields, {
-  CollectionField,
-} from '@hooks/useCollectionFields'
+import useCollectionDetails from '@hooks/useCollectionDetails'
 import methods from 'constants/methods'
 import useBuildCollection from '@hooks/useBuildCollection'
+import Link from 'next/link'
 
 const EditCollections = () => {
   const [isModalVisible, setModalVisible] = useState(false)
@@ -46,7 +45,7 @@ const EditCollections = () => {
 
   const id = typeof router.query.id === 'string' ? router.query.id : undefined
 
-  const { deleteField, postField, data } = useCollectionFields()
+  const { deleteField, postField, collection } = useCollectionDetails()
   const { buildDatabaseCollections } = useBuildCollection()
 
   const submitCollectionField: FormEventHandler<HTMLFormElement> = async (
@@ -55,10 +54,10 @@ const EditCollections = () => {
     e.preventDefault()
     if (!id) return
 
-    const { methodName, title, ...rest } = fieldFormValues
+    const { methodName, name, ...rest } = fieldFormValues
 
-    const payload: CollectionField = {
-      title: title + '',
+    const payload: FieldPayload = {
+      name: typeof name === 'string' ? name : methodName + '',
       methodName: methodName + '',
       arguments: JSON.stringify(rest),
       collectionId: +id,
@@ -74,14 +73,13 @@ const EditCollections = () => {
   ) => {
     e.preventDefault()
     const quantity =
-      typeof buildValues.quantity === 'string'
-        ? +buildValues.quantity
-        : undefined
-        
-    buildDatabaseCollections({
-      collectionName: data?.collection.title,
-      quantity: quantity,
-    })
+      typeof buildValues.quantity === 'string' ? +buildValues.quantity : 10
+
+    if (collection?.name)
+      buildDatabaseCollections({
+        collectionName: collection?.name,
+        quantity: quantity,
+      })
 
     setBuildModalVisible(false)
   }
@@ -94,7 +92,7 @@ const EditCollections = () => {
     }))
 
     return [
-      { type: InputType.text, name: 'title', label: 'Field Name' },
+      { type: InputType.text, name: 'name', label: 'Field Name' },
       {
         type: InputType.select,
         name: 'methodName',
@@ -136,14 +134,19 @@ const EditCollections = () => {
     },
   ]
 
-  const fieldColumns: TableColumn<Field>[] = [
-    { id: '1', label: 'title', name: 'title' },
+  const fieldColumns: TableColumn<FieldPayload>[] = [
+    { id: '1', label: 'name', name: 'name' },
     { id: '2', label: 'method name', name: 'methodName' },
     {
       id: '3',
       label: 'delete',
       render: (row) => (
-        <button onClick={(e) => deleteField(+row.id)} className="btn">
+        <button
+          onClick={() => {
+            if (row?.id) deleteField(+row?.id)
+          }}
+          className="btn"
+        >
           delete
         </button>
       ),
@@ -162,7 +165,7 @@ const EditCollections = () => {
   return (
     <>
       <Head>
-      <title>Mocker - JSON Placeholder | {data?.collection.title} 's fields</title>
+        <title>Mocker - JSON Placeholder | {collection?.name} 's fields</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Modal // add collection modal
@@ -197,7 +200,9 @@ const EditCollections = () => {
         <Card>
           <>
             <div className="card-actions items-center  justify-between">
-              <h2 className="card-title">{data?.collection.title} 's fields</h2>
+              <Link href="/database-collections">
+                <h2 className="card-title">{collection?.name} 's fields</h2>
+              </Link>
               <div className="btn-group">
                 <button
                   onClick={() => setModalVisible(true)}
@@ -216,10 +221,7 @@ const EditCollections = () => {
             {/* <p className="mb-4 flex-grow-0">
               If a dog chews shoes whose shoes does he choose?
             </p> */}
-            <Table
-              columns={fieldColumns}
-              data={data?.collection.Fields || []}
-            />
+            <Table columns={fieldColumns} data={collection?.Fields || []} />
           </>
         </Card>
       </div>

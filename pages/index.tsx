@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>Cool JSON Placeholder</title>
+        <title></title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
     </>

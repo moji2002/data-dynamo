@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import db from '@libs/db'
+import { HttpResponse, Response } from 'types/api'
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,41 +12,67 @@ export default async function handler(
       include: { Fields: true },
     })
 
-    return res.status(200).json({ message: 'SUCCESS', collection: result })
+    const response: HttpResponse<any> = {
+      message: Response.SUCCESS,
+      data: result,
+    }
+
+    return res.status(200).json(response)
   }
 
   if (req.method === 'GET') {
     const result = await db.collection.findMany()
-    return res.status(200).json({ collections: result, message: 'SUCCESS' })
+    const response: HttpResponse<any> = {
+      message: Response.SUCCESS,
+      data: result,
+    }
+    return res.status(200).json(response)
   }
 
   if (req.method === 'POST') {
     const name = req.body.name
     const desc = req.body.desc
 
-    if (typeof name !== 'string' || typeof desc !== 'string') {
-      return res.status(400).json({ error: 'INVALID' })
+    if (typeof name !== 'string') {
+      const response: HttpResponse<any> = {
+        message: Response.INVALID_ERROR,
+      }
+      return res.status(400).json(response)
     }
 
     const result = await db.collection.create({
       data: {
-        title: name,
-        desc: desc,
+        name: name,
+        desc: typeof desc === 'string' ? desc : '',
       },
     })
-    return res.status(200).json({ collection: result, message: 'SUCCESS' })
+
+    const response: HttpResponse<any> = {
+      message: Response.SUCCESS,
+      data: result,
+    }
+
+    return res.status(200).json(response)
   }
 
   if (req.method === 'DELETE') {
     const id = req.query.id
 
     if (typeof id !== 'string') {
-      return res.status(400).json({})
+      const response: HttpResponse<any> = {
+        message: Response.SUCCESS,
+      }
+
+      return res.status(400).json(response)
     }
 
     await db.collection.delete({ where: { id: +id } })
 
-    return res.status(200).json({ message: 'SUCCESS' })
+    const response: HttpResponse<any> = {
+      message: Response.SUCCESS,
+    }
+
+    return res.status(200).json(response)
   }
 
   res.status(500).json({ error: 'SERVER_ERROR' })

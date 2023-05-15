@@ -11,17 +11,18 @@ export default async function handler(
 
   if (req.method === 'POST') {
     const collectionName = req.query.collectionName
-    const quantity =typeof req.query.quantity === 'string' ? +req.query.quantity : undefined
+    const quantity =
+      typeof req.query.quantity === 'string' ? +req.query.quantity : undefined
 
     if (typeof collectionName !== 'string') {
-      return res.status(401).json({ error: 'INVALID' })
+      return res.status(401).json({ message: 'INVALID' })
     }
 
     await db.record.deleteMany({ where: { collectionName } })
 
     const result = await db.collection.findFirst({
       where: {
-        title: collectionName,
+        name: collectionName,
       },
 
       include: {
@@ -30,12 +31,12 @@ export default async function handler(
     })
 
     if (!result) {
-      return res.status(404).json({ error: 'NOT_FOUND' })
+      return res.status(404).json({ message: 'NOT_FOUND' })
     }
 
-    const data = generateRecords(result?.Fields,quantity)
+    const records = generateRecords(result?.Fields, quantity)
 
-    const reshaped = data.map((d) => {
+    const reshaped = records.map((d) => {
       return {
         json: JSON.stringify(d),
         id: nanoid(),
@@ -45,8 +46,8 @@ export default async function handler(
 
     reshaped.forEach(async (record) => await db.record.create({ data: record }))
 
-    return res.status(200).json({ message: 'SUCCESS', f: result })
+    return res.status(200).json({ message: 'SUCCESS' })
   }
 
-  res.status(500).json({ error: 'SERVER_ERROR' })
+  res.status(500).json({ message: 'SERVER_ERROR' })
 }

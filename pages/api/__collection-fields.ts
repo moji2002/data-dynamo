@@ -1,32 +1,38 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import db from '@libs/db'
+import { HttpResponse, Response } from 'types/api'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === 'POST') {
-    const result = await db.field.create({
+    await db.field.create({
       data: {
         methodName: req.body.methodName,
         arguments: req.body.arguments,
-        title: req.body.title,
+        name: req.body.name,
         collection: {
           connect: { id: req.body.collectionId },
         },
       },
     })
-    return res.status(200).json({ result,message: 'SUCCESS' })
+    const response: HttpResponse<any> = { message: Response.SUCCESS }
+    return res.status(200).json(response)
   }
 
   if (req.method === 'DELETE' && typeof req.query.id === 'string') {
-    const result = await db.field.delete({
+    await db.field.delete({
       where: {
         id: +req.query.id,
       },
     })
-    return res.status(200).json({ result ,message: 'SUCCESS'})
+    const response: HttpResponse<any> = { message: Response.SUCCESS }
+
+    return res.status(200).json(response)
   }
 
-  res.status(500).json({ error: 'SERVER_ERROR'  })
+  const response: HttpResponse<any> = { message: Response.SERVER_ERROR }
+
+  res.status(500).json(response)
 }
