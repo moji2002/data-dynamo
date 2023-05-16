@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title></title>
+        <title>Data Dynamo - tool for generating fake api</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
     </>

@@ -20,7 +20,6 @@ const DatabaseCollectionsPage = () => {
     [key: string]: number | string | boolean
   }>({})
 
-
   const handleSetValue = (key: string, value: number | string | boolean) => {
     setFormValues((prev) => ({ ...prev, [key]: value }))
   }
@@ -41,7 +40,6 @@ const DatabaseCollectionsPage = () => {
     postDatabaseCollections(formValues)
     setFormValues({})
     setModalVisible(false)
-
   }
 
   const databaseCollectionColumns: TableColumn<DatabaseCollection>[] = [
@@ -108,7 +106,7 @@ const DatabaseCollectionsPage = () => {
   return (
     <>
       <Head>
-        <title>Mocker - JSON Placeholder</title>
+        <title>Data Dynamo - collections</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Modal // add collection modal

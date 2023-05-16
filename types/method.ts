@@ -13,6 +13,7 @@ type CommonInputProps = {
   label?: string
   desc?: string
   placeholder?: string
+  required?: boolean
 }
 
 type SelectInputProps = {

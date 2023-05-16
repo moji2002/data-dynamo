@@ -38,7 +38,7 @@ const Navbar = ({ setDrawerOpen }: { setDrawerOpen: (e: boolean) => void }) => {
           className="btn btn-ghost text-xl normal-case"
           href="/database-collections"
         >
-          Mocker - JSON Placeholder
+           Data Dynamo
         </Link>
       </div>
       <div className="pr-4 hidden md:block">

@@ -166,7 +166,7 @@ const EditCollections = () => {
   return (
     <>
       <Head>
-        <title>Mocker - JSON Placeholder | {collection?.name} 's fields</title>
+        <title>Data Dynamo | {collection?.name} 's fields</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Modal // add collection modal
