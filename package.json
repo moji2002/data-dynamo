@@ -4,10 +4,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "migrate:dev": "prisma migrate dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "prisma migrate dev && next dev",
+    "build": "prisma migrate deploy && next build",
+    "start": "npm run build && next start",
     "lint": "next lint",
     "find:unused": "npx next-unused",
     "prettier": "prettier --write ."

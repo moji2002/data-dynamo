@@ -34,8 +34,10 @@ export default async function handler(
       return res.status(404).json({ message: 'NOT_FOUND' })
     }
 
+    //@ts-ignore
     const records = generateRecords(result?.Fields, quantity)
 
+    //@ts-ignore
     const reshaped = records.map((d) => {
       return {
         json: JSON.stringify(d),
@@ -44,6 +46,7 @@ export default async function handler(
       }
     })
 
+    //@ts-ignore
     reshaped.forEach(async (record) => await db.record.create({ data: record }))
 
     return res.status(200).json({ message: 'SUCCESS' })
