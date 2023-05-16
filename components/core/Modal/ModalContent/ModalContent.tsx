@@ -30,6 +30,7 @@ const ModalContent: FC<Props> = ({ elements, values, handleSetValue }) => {
                 label={element.label || element.name}
                 value={typeof value === 'string' ? value : ''}
                 onChange={(e) => handleSetValue(element.name, e.target.value)}
+                required={element.required}
               />
             )}
             {element.type === InputType.number && (
@@ -46,6 +47,7 @@ const ModalContent: FC<Props> = ({ elements, values, handleSetValue }) => {
                     : element.defaultValue + '' || ''
                 }
                 onChange={(e) => handleSetValue(element.name, e.target.value)}
+                required={element.required}
               />
             )}
             {element.type === InputType.range && (
@@ -71,6 +73,7 @@ const ModalContent: FC<Props> = ({ elements, values, handleSetValue }) => {
                 list={element.list}
                 value={typeof value === 'string' ? value : ''}
                 onChange={(e) => handleSetValue(element.name, e.target.value)}
+                required={element.required}
               />
             )}
             {element.type === InputType.toggle && (

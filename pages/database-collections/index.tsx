@@ -50,8 +50,8 @@ const DatabaseCollectionsPage = () => {
       label: 'delete',
       render: (row) => (
         <button
-          onClick={(e) => deleteDatabaseCollections(row.id)}
-          className="btn"
+          onClick={(e) => deleteDatabaseCollections(row.id + '')}
+          className="btn btn-outline btn-error"
         >
           delete
         </button>
@@ -64,7 +64,7 @@ const DatabaseCollectionsPage = () => {
       render: (row) => (
         <button
           onClick={(e) => router.push(`database-collections/${row.id}`)}
-          className="btn btn-primary"
+          className="btn btn-primary btn-outline"
         >
           edit
         </button>
@@ -78,6 +78,7 @@ const DatabaseCollectionsPage = () => {
       type: InputType.text,
       name: 'name',
       label: 'collection name',
+      required: true,
     },
     {
       name: 'desc',
@@ -131,7 +132,7 @@ const DatabaseCollectionsPage = () => {
               <div className="btn-group">
                 <button
                   onClick={() => setModalVisible(true)}
-                  className="btn  btn-outline btn-success"
+                  className="btn btn-success"
                 >
                   add collection
                 </button>

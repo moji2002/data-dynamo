@@ -57,7 +57,7 @@ const EditCollections = () => {
     const { methodName, name, ...rest } = fieldFormValues
 
     const payload: FieldPayload = {
-      name: typeof name === 'string' ? name : methodName + '',
+      name: typeof name === 'string' && !!name.trim() ? name : methodName + '',
       methodName: methodName + '',
       arguments: JSON.stringify(rest),
       collectionId: +id,
@@ -98,6 +98,7 @@ const EditCollections = () => {
         name: 'methodName',
         label: 'Field type',
         list: list,
+        required: true,
       },
       ...(method?.arguments ? method.arguments : []),
     ]
@@ -145,7 +146,7 @@ const EditCollections = () => {
           onClick={() => {
             if (row?.id) deleteField(+row?.id)
           }}
-          className="btn"
+          className="btn btn-error btn-outline"
         >
           delete
         </button>
@@ -207,18 +208,18 @@ const EditCollections = () => {
               <div className="btn-group">
                 <button
                   onClick={() => setModalVisible(true)}
-                  className="btn  btn-outline btn-success"
+                  className="btn btn-success"
                 >
                   add field
                 </button>
                 <button
-                  className="btn btn-outline btn-primary "
+                  className="btn btn-outline btn-success "
                   onClick={() => setBuildModalVisible(true)}
                 >
                   build table
                 </button>
                 <a
-                  className="btn btn-outline btn-primary "
+                  className="btn btn-outline btn-success "
                   href={'/api/' + collection?.name}
                   target="_blank"
                 >

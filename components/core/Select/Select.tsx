@@ -9,6 +9,7 @@ type Props = {
   label?: string
   name?: string
   defaultValue?: string | number
+  required?: boolean
 }
 
 const Select: FC<Props> = ({
@@ -19,6 +20,7 @@ const Select: FC<Props> = ({
   label,
   name,
   defaultValue,
+  required,
 }) => {
   return (
     <>
@@ -30,6 +32,7 @@ const Select: FC<Props> = ({
         name={name}
         value={value}
         defaultValue={defaultValue}
+        required={required}
       >
         <option value="">Please Select</option>
         {list.map((item) => (

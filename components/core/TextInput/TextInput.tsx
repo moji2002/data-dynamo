@@ -8,6 +8,7 @@ type Props = {
   name?: string
   defaultValue?: string | number
   type?: HTMLInputTypeAttribute
+  required?: boolean
 }
 
 const TextInput: FC<Props> = ({
@@ -18,6 +19,7 @@ const TextInput: FC<Props> = ({
   name,
   defaultValue,
   type = 'text',
+  required,
 }) => {
   return (
     <>
@@ -30,6 +32,7 @@ const TextInput: FC<Props> = ({
         placeholder={placeholder}
         className="input input-bordered input-primary w-full"
         onChange={onChange}
+        required={required}
       />
     </>
   )
