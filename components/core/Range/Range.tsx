@@ -23,7 +23,7 @@ const Range: FC<Props> = ({
 }) => {
   return (
     <>
-      {label && <div className="p-2 capitalize">{label}</div>}
+      {label && <div className="p-2 capitalize">{`${label} (${value})`}</div>}
       <input
         name={name}
         type="range"

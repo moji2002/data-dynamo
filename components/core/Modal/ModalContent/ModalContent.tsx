@@ -40,12 +40,10 @@ const ModalContent: FC<Props> = ({ elements, values, handleSetValue }) => {
                 name={element.name}
                 placeholder={element.placeholder}
                 label={element.label || element.name}
+                max={element.max}
+                min={element.min}
                 type="number"
-                value={
-                  typeof value === 'string'
-                    ? value
-                    : element.defaultValue + '' || ''
-                }
+                value={typeof value === 'string' ? value : ''}
                 onChange={(e) => handleSetValue(element.name, e.target.value)}
                 required={element.required}
               />
@@ -59,10 +57,8 @@ const ModalContent: FC<Props> = ({ elements, values, handleSetValue }) => {
                 max={element.max}
                 min={element.min}
                 step={element.step}
-                value={
-                  typeof value === 'number' ? value : element.defaultValue || 0
-                }
-                onChange={(e) => handleSetValue(element.name, e.target.value)}
+                value={typeof value === 'number' ? value : 0}
+                onChange={(e) => handleSetValue(element.name, +e.target.value)}
               />
             )}
             {element.type === InputType.select && (
@@ -82,12 +78,8 @@ const ModalContent: FC<Props> = ({ elements, values, handleSetValue }) => {
                 name={element.name}
                 label={element.label || element.name}
                 defaultChecked={element.defaultValue}
-                checked={
-                  typeof value === 'boolean'
-                    ? value
-                    : element.defaultValue || false
-                }
-                onToggle={(e) => handleSetValue(element.name, e.target.value)}
+                checked={!!value}
+                onToggle={(e) => handleSetValue(element.name, e.target.checked)}
               />
             )}
             {element.desc && <div className="p-2 text-xs ">{element.desc}</div>}

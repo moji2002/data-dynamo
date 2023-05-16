@@ -9,6 +9,8 @@ type Props = {
   defaultValue?: string | number
   type?: HTMLInputTypeAttribute
   required?: boolean
+  min?: number
+  max?: number
 }
 
 const TextInput: FC<Props> = ({
@@ -20,6 +22,8 @@ const TextInput: FC<Props> = ({
   defaultValue,
   type = 'text',
   required,
+  max,
+  min,
 }) => {
   return (
     <>
@@ -33,6 +37,8 @@ const TextInput: FC<Props> = ({
         className="input input-bordered input-primary w-full"
         onChange={onChange}
         required={required}
+        min={min}
+        max={max}
       />
     </>
   )
